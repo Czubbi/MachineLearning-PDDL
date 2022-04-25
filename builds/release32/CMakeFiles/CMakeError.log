@@ -1,0 +1,27 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /usr/bin/gcc 
+Build flags: ;-m32
+Id flags:  
+
+The output was:
+1
+ld: warning: The i386 architecture is deprecated for macOS (remove from the Xcode build setting: ARCHS)
+ld: warning: ignoring file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd, missing required architecture i386 in file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd (3 slices)
+ld: dynamic main executables must link with libSystem.dylib for architecture i386
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /usr/bin/g++ 
+Build flags: ;-m32
+Id flags:  
+
+The output was:
+1
+ld: warning: The i386 architecture is deprecated for macOS (remove from the Xcode build setting: ARCHS)
+ld: warning: ignoring file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libc++.tbd, missing required architecture i386 in file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libc++.tbd (3 slices)
+ld: warning: ignoring file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd, missing required architecture i386 in file /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd (3 slices)
+ld: dynamic main executables must link with libSystem.dylib for architecture i386
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+

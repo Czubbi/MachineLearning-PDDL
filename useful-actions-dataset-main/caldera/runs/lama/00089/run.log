@@ -1,0 +1,31 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: ['--grounding-action-queue-ordering', 'fifo']
+INFO     translator time limit: 1799.93s
+INFO     translator memory limit: 4096 MB
+INFO     callstring: /usr/bin/python3 /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/translate/translate.py domain.pddl problem.pddl --grounding-action-queue-ordering fifo
+time limit 1799.93 -> (1800, 1801)
+Parsing...
+Parsing: [0.020s CPU, 0.044s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.020s CPU, 0.015s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.020s CPU, 0.027s wall-clock]
+Preparing model... [0.030s CPU, 0.032s wall-clock]
+Generated 285 rules.
+Using FIFO priority queue for actions.
+using default termination condition, i.e. grounding all actions.
+Computing model... [443.700s CPU, 447.069s wall-clock]
+no statistics available
+5642130 relevant atoms
+109251 auxiliary atoms
+5639089 actions instantiated
+5751381 final queue length
+52662783 total queue pushes
+Completing instantiation... Command '['/usr/bin/python3', '/mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/translate/translate.py', 'domain.pddl', 'problem.pddl', '--grounding-action-queue-ordering', 'fifo']' returned non-zero exit status 1.
+2018-07-25 18:53:42,189 ERROR    Pattern (\d+) of \d+ operators necessary not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00089/run.log
+2018-07-25 18:53:42,189 ERROR    Pattern (\d+) of \d+ axiom rules necessary not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00089/run.log
+Running single search parser
+2018-07-25 18:53:42,366 ERROR    Pattern search time limit: (\d+)s not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00089/run.log
+2018-07-25 18:53:42,366 ERROR    Pattern search memory limit: (\d+) MB not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00089/run.log

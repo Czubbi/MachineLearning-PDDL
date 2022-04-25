@@ -1,0 +1,57 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: ['--grounding-action-queue-ordering', 'fifo']
+INFO     translator time limit: 1799.93s
+INFO     translator memory limit: 4096 MB
+INFO     callstring: /usr/bin/python3 /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/translate/translate.py domain.pddl problem.pddl --grounding-action-queue-ordering fifo
+time limit 1799.93 -> (1800, 1801)
+Parsing...
+Parsing: [0.020s CPU, 0.022s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.012s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.030s CPU, 0.027s wall-clock]
+Preparing model... [0.020s CPU, 0.026s wall-clock]
+Generated 285 rules.
+Using FIFO priority queue for actions.
+using default termination condition, i.e. grounding all actions.
+Computing model... [165.200s CPU, 165.862s wall-clock]
+no statistics available
+2103736 relevant atoms
+62269 auxiliary atoms
+2101441 actions instantiated
+2166005 final queue length
+19446841 total queue pushes
+Completing instantiation... [437.360s CPU, 439.212s wall-clock]
+Instantiating: [603.700s CPU, 606.213s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [13.790s CPU, 13.822s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+1052 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.010s CPU, 0.011s wall-clock]
+Computing fact groups: [13.820s CPU, 13.854s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.002s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.003s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.002s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [3.700s CPU, 3.704s wall-clock]
+Translating task: [88.660s CPU, 89.058s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+Command '['/usr/bin/python3', '/mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/translate/translate.py', 'domain.pddl', 'problem.pddl', '--grounding-action-queue-ordering', 'fifo']' returned non-zero exit status 1.
+2018-07-26 00:35:10,249 ERROR    Pattern (\d+) of \d+ operators necessary not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00085/run.log
+2018-07-26 00:35:10,249 ERROR    Pattern (\d+) of \d+ axiom rules necessary not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00085/run.log
+Running single search parser
+2018-07-26 00:35:10,409 ERROR    Pattern search time limit: (\d+)s not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00085/run.log
+2018-07-26 00:35:10,410 ERROR    Pattern search memory limit: (\d+) MB not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00085/run.log

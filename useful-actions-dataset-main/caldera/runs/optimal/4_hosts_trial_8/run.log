@@ -1,0 +1,169 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.020s CPU, 0.028s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.004s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.020s CPU, 0.021s wall-clock]
+Preparing model... [0.010s CPU, 0.012s wall-clock]
+Generated 285 rules.
+Computing model... [0.610s CPU, 0.610s wall-clock]
+10256 relevant atoms
+3622 auxiliary atoms
+13878 final queue length
+116331 total queue pushes
+Completing instantiation... [1.730s CPU, 1.726s wall-clock]
+Instantiating: [2.380s CPU, 2.442s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [0.050s CPU, 0.056s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+302 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.002s wall-clock]
+Computing fact groups: [0.060s CPU, 0.063s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.001s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.001s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.090s CPU, 0.093s wall-clock]
+Translating task: [1.590s CPU, 1.596s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+112 propositions removed
+Detecting unreachable propositions: [0.690s CPU, 0.694s wall-clock]
+Translator variables: 246
+Translator derived variables: 0
+Translator facts: 492
+Translator goal facts: 3
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 6337
+Translator axioms: 0
+Translator task size: 160616
+Translator peak memory: 178148 KB
+Writing output... [0.230s CPU, 0.434s wall-clock]
+Done! [5.030s CPU, 5.313s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+173 variables of 246 necessary
+0 of 0 mutex groups necessary.
+6257 of 6337 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 346 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=29929, notReached=89441, spurious=346
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=110892, notReached=8478, spurious=346
+796 operators are spurious because were not triggered
+H^2 mutexes added fw: 8478, unreachable: 0
+0 of 5461 operators detected as spurious
+Total mutex and disambiguation time: 0.87275 iterations: 2
+4239 of 4239 mutex groups necessary.
+5461 of 6257 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 5461
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 173
+4239 of 4239 mutex groups necessary.
+5461 of 5461 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+173 variables of 173 of 246 necessary
+The causal graph is not acyclic.
+173 variables of 173 necessary
+4239 of 4239 mutex groups necessary.
+5461 of 5461 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 173
+Preprocessor facts: 346
+Preprocessor derived variables: 0
+Preprocessor operators: 5461
+Preprocessor mutex groups: 4239
+Preprocessor task size: 142800
+Writing output...
+Preprocessor time: 2.25954s
+Preprocessor peak memory: 23744 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward --search 'sbd(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000105417s]
+done reading input! [t=0.230964s]
+packing state variables...done! [t=0.230997s]
+Variables: 173
+FactPairs: 346
+Bytes per state: 24
+Building successor generator...done! [t=0.28654s]
+done initalizing global data [t=0.28655s]
+Mutex type changed to mutex_and because the domain has conditional effects
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=and)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.0489581s]
+Sym variable order: 3 5 4 69 71 70 68 37 22 39 36 25 62 41 66 63 67 43 60 61 28 53 40 55 34 57 52 47 59 46 56 51 50 45 44 64 65 54 17 16 18 35 15 14 13 11 30 29 31 10 12 24 23 19 80 77 81 79 32 33 27 26 78 20 21 107 105 103 104 106 74 73 72 75 76 119 118 117 116 0 143 1 2 149 151 145 148 153 155 157 159 132 108 139 112 109 170 115 125 172 171 135 130 128 124 126 134 127 113 111 114 110 140 142 131 137 138 133 136 141 129 121 120 122 123 101 83 96 82 102 58 49 48 163 38 162 166 160 93 95 90 92 94 87 89 84 86 91 88 85 100 165 156 154 164 158 167 152 161 169 99 98 97 42 147 146 150 144 168 9 7 8 6 
+Initializing Symbolic Variables
+Num variables: 173 => 173
+Initialize Symbolic Manager(346, 46242, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 51.6433s
+BOUND: 2 < 2147483647, total time: 51.6525s
+BOUND: 3 < 2147483647, total time: 54.3924s
+BOUND: 4 < 2147483647, total time: 54.3952s
+BOUND: 5 < 2147483647, total time: 54.4007s
+BOUND: 6 < 2147483647, total time: 54.4134s
+BOUND: 7 < 2147483647, total time: 54.4434s
+BOUND: 8 < 2147483647, total time: 54.5733s
+BOUND: 9 < 2147483647, total time: 54.9799s
+BOUND: 10 < 2147483647, total time: 149.973s
+BOUND: 11 < 2147483647, total time: 151.205s
+BOUND: 12 < 2147483647, total time: 155.753s
+BOUND: 13 < 2147483647, total time: 165.247s
+BOUND: 14 < 2147483647, total time: 202.97s
+Peak memory: 3462668 KB
+Command '['/mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward', '--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)', '--internal-plan-file', 'sas_plan']' returned non-zero exit status 1
+Running single search parser

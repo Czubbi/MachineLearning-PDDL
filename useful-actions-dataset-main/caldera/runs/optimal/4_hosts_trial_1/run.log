@@ -1,0 +1,471 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.010s CPU, 0.022s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.005s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.030s CPU, 0.030s wall-clock]
+Preparing model... [0.020s CPU, 0.015s wall-clock]
+Generated 285 rules.
+Computing model... [0.330s CPU, 0.343s wall-clock]
+4260 relevant atoms
+2263 auxiliary atoms
+6523 final queue length
+35378 total queue pushes
+Completing instantiation... [0.820s CPU, 0.826s wall-clock]
+Instantiating: [1.220s CPU, 1.230s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [0.030s CPU, 0.035s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+231 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.003s wall-clock]
+Computing fact groups: [0.040s CPU, 0.042s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.050s CPU, 0.050s wall-clock]
+Translating task: [0.940s CPU, 0.942s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+44 propositions removed
+Detecting unreachable propositions: [0.410s CPU, 0.412s wall-clock]
+Translator variables: 209
+Translator derived variables: 0
+Translator facts: 418
+Translator goal facts: 3
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 2737
+Translator axioms: 0
+Translator task size: 67129
+Translator peak memory: 100892 KB
+Writing output... [0.130s CPU, 0.163s wall-clock]
+Done! [2.770s CPU, 2.839s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+155 variables of 209 necessary
+0 of 0 mutex groups necessary.
+2657 of 2737 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 310 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=24025, notReached=71765, spurious=310
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=90408, notReached=5382, spurious=310
+228 operators are spurious because were not triggered
+H^2 mutexes added fw: 5382, unreachable: 0
+0 of 2429 operators detected as spurious
+Total mutex and disambiguation time: 0.369229 iterations: 2
+2691 of 2691 mutex groups necessary.
+2429 of 2657 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 2429
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 155
+2691 of 2691 mutex groups necessary.
+2429 of 2429 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+155 variables of 155 of 209 necessary
+The causal graph is not acyclic.
+155 variables of 155 necessary
+2691 of 2691 mutex groups necessary.
+2429 of 2429 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 155
+Preprocessor facts: 310
+Preprocessor derived variables: 0
+Preprocessor operators: 2429
+Preprocessor mutex groups: 2691
+Preprocessor task size: 64372
+Writing output...
+Preprocessor time: 1.09073s
+Preprocessor peak memory: 11024 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward --search 'sbd(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000119796s]
+done reading input! [t=0.115543s]
+packing state variables...done! [t=0.115587s]
+Variables: 155
+FactPairs: 310
+Bytes per state: 20
+Building successor generator...done! [t=0.146075s]
+done initalizing global data [t=0.1461s]
+Mutex type changed to mutex_and because the domain has conditional effects
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=and)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.0266061s]
+Sym variable order: 5 4 6 53 51 52 31 19 17 25 30 18 28 32 24 48 27 26 46 42 29 45 40 47 36 43 41 34 44 35 70 69 72 73 71 63 59 60 61 62 65 67 64 66 68 20 106 109 108 49 107 12 13 11 10 130 110 144 127 124 140 149 142 136 15 14 121 148 138 2 0 1 119 115 114 116 145 125 132 128 122 101 93 92 91 87 85 105 152 86 103 153 78 80 79 104 83 82 88 154 131 134 118 75 98 74 95 97 76 94 99 96 89 102 81 100 77 84 90 54 57 56 58 55 137 146 133 135 143 126 147 129 139 120 123 141 151 16 22 21 23 39 113 117 111 112 150 37 38 33 50 9 7 8 3 
+Initializing Symbolic Variables
+Num variables: 155 => 155
+Initialize Symbolic Manager(310, 51612, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 15.3052s
+BOUND: 2 < 2147483647, total time: 15.3091s
+BOUND: 3 < 2147483647, total time: 15.7799s
+BOUND: 4 < 2147483647, total time: 15.7819s
+BOUND: 5 < 2147483647, total time: 15.786s
+BOUND: 6 < 2147483647, total time: 15.7902s
+BOUND: 7 < 2147483647, total time: 15.7993s
+BOUND: 8 < 2147483647, total time: 15.838s
+BOUND: 9 < 2147483647, total time: 15.9435s
+BOUND: 10 < 2147483647, total time: 26.1044s
+BOUND: 11 < 2147483647, total time: 26.4197s
+BOUND: 12 < 2147483647, total time: 27.4328s
+BOUND: 13 < 2147483647, total time: 31.1666s
+BOUND: 14 < 2147483647, total time: 44.032s
+BOUND: 15 < 2147483647, total time: 307.817s
+Solution found with cost 15 total time: 342.36s
+Merging: 1
+12 346.509 1 27837
+Merging: 225
+11 375.06 1 27364
+Merging: 225
+10 404.353 1 22525
+Merging: 201
+9 427.216 1 21053
+Merging: 201
+8 447.197 1 10887
+Merging: 105
+7 456.345 1 7592
+Merging: 75
+6 461.654 1 3686
+Merging: 64
+5 464.288 1 2302
+Merging: 64
+4 465.519 1 537
+Merging: 16
+3 465.781 1 258
+Merging: 5
+2 465.894 1 227
+Merging: 2
+1 466.009 1 156
+Merging: 1
+3 466.084 1 27837
+Merging: 225
+2 469.852 1 24072
+Merging: 189
+1 473.121 1 11224
+BOUND: 15 < 15, total time: 475.304s
+Solution found with cost 15 total time: 475.694s
+Merging: 1
+12 475.695 1 20762
+Merging: 129
+11 497.456 1 27197
+Merging: 185
+10 522.715 1 25530
+Merging: 161
+9 546.824 1 22000
+Merging: 161
+8 566.778 1 10887
+Merging: 105
+7 575.643 1 7592
+Merging: 75
+6 580.76 1 3686
+Merging: 64
+5 583.343 1 2302
+Merging: 64
+4 584.552 1 537
+Merging: 16
+3 584.809 1 258
+Merging: 5
+2 584.921 1 227
+Merging: 2
+1 585.035 1 156
+Merging: 1
+3 585.109 1 20762
+Merging: 215
+2 587.613 1 23071
+Merging: 187
+1 590.403 1 12157
+Solution found with cost 15 total time: 592.719s
+Merging: 1
+12 592.719 1 5915
+Merging: 50
+11 597.636 1 10925
+Merging: 133
+10 607.429 1 15721
+Merging: 121
+9 621.886 1 15592
+Merging: 121
+8 635.821 1 10186
+Merging: 89
+7 644.286 1 7379
+Merging: 75
+6 649.452 1 3686
+Merging: 64
+5 652.006 1 2302
+Merging: 64
+4 653.196 1 537
+Merging: 16
+3 653.449 1 258
+Merging: 5
+2 653.557 1 227
+Merging: 2
+1 653.668 1 156
+Merging: 1
+3 653.74 1 5915
+Merging: 94
+2 654.666 1 7800
+Merging: 102
+1 657.871 1 4665
+Solution found with cost 15 total time: 658.844s
+Merging: 1
+12 658.844 1 13393
+Merging: 110
+11 670.315 1 18419
+Merging: 144
+10 686.729 1 21492
+Merging: 173
+9 705.902 1 18906
+Merging: 177
+8 722.941 1 11059
+Merging: 101
+7 731.811 1 7683
+Merging: 75
+6 737.068 1 3682
+Merging: 64
+5 739.671 1 2302
+Merging: 64
+4 740.872 1 537
+Merging: 16
+3 741.131 1 258
+Merging: 5
+2 741.244 1 227
+Merging: 2
+1 741.358 1 156
+Merging: 1
+3 741.432 1 13393
+Merging: 101
+2 743.159 1 16851
+Merging: 105
+1 745.188 1 9245
+Solution found with cost 15 total time: 747.073s
+Merging: 1
+12 747.073 1 20223
+Merging: 189
+11 763.65 1 25819
+Merging: 189
+10 785.694 1 33489
+Merging: 189
+9 814.842 1 27728
+Merging: 189
+8 838.616 1 14731
+Merging: 103
+7 850.296 1 8777
+Merging: 75
+6 856.298 1 3819
+Merging: 64
+5 859.055 1 2302
+Merging: 64
+4 860.251 1 537
+Merging: 16
+3 860.504 1 258
+Merging: 5
+2 860.615 1 227
+Merging: 2
+1 860.728 1 156
+Merging: 1
+3 860.802 1 20223
+Merging: 178
+2 862.944 1 26083
+Merging: 178
+1 867.969 1 10963
+Solution found with cost 15 total time: 869.603s
+Merging: 1
+12 869.603 1 4843
+Merging: 43
+11 873.425 1 9458
+Merging: 102
+10 881.5 1 13868
+Merging: 94
+9 893.522 1 13790
+Merging: 94
+8 905.1 1 9577
+Merging: 74
+7 912.778 1 6810
+Merging: 60
+6 917.599 1 3662
+Merging: 52
+5 920.083 1 2115
+Merging: 52
+4 921.172 1 537
+Merging: 16
+3 921.428 1 258
+Merging: 5
+2 921.538 1 227
+Merging: 2
+1 921.653 1 156
+Merging: 1
+3 921.727 1 4843
+Merging: 86
+2 922.418 1 6310
+Merging: 90
+1 923.213 1 3955
+Solution found with cost 15 total time: 923.947s
+Merging: 1
+12 923.947 1 4924
+Merging: 43
+11 928.182 1 9378
+Merging: 102
+10 936.49 1 13768
+Merging: 94
+9 949.015 1 13707
+Merging: 94
+8 961.138 1 9527
+Merging: 74
+7 968.881 1 6752
+Merging: 60
+6 973.672 1 3638
+Merging: 52
+5 976.148 1 2103
+Merging: 52
+4 977.208 1 537
+Merging: 16
+3 977.448 1 258
+Merging: 5
+2 977.553 1 227
+Merging: 2
+1 977.658 1 156
+Merging: 1
+3 977.727 1 4924
+Merging: 86
+2 978.489 1 6311
+Merging: 90
+1 979.336 1 4011
+Solution found with cost 15 total time: 980.133s
+Merging: 1
+12 980.133 1 3644
+Merging: 25
+11 983.151 1 7269
+Merging: 69
+10 989.086 1 11156
+Merging: 74
+9 998.658 1 11400
+Merging: 74
+8 1008.4 1 8321
+Merging: 62
+7 1014.74 1 6011
+Merging: 50
+6 1018.89 1 3504
+Merging: 44
+5 1021.33 1 2014
+Merging: 44
+4 1022.37 1 537
+Merging: 16
+3 1022.61 1 258
+Merging: 5
+2 1022.72 1 227
+Merging: 2
+1 1022.82 1 156
+Merging: 1
+3 1022.89 1 3644
+Merging: 47
+2 1023.45 1 4195
+Merging: 51
+1 1026.03 1 2286
+Solution found with cost 15 total time: 1026.57s
+Merging: 1
+12 1026.57 1 20541
+Merging: 177
+11 1044.28 1 25009
+Merging: 190
+10 1067.38 1 24348
+Merging: 181
+9 1090.63 1 20852
+Merging: 181
+8 1109.81 1 10894
+Merging: 105
+7 1118.76 1 7589
+Merging: 75
+6 1123.94 1 3686
+Merging: 64
+5 1126.51 1 2302
+Merging: 64
+4 1127.72 1 537
+Merging: 16
+3 1127.98 1 258
+Merging: 5
+2 1128.09 1 227
+Merging: 2
+1 1128.2 1 156
+Merging: 1
+3 1128.27 1 20541
+Merging: 188
+2 1130.75 1 22913
+Merging: 165
+1 1133.41 1 11014
+Actual search time: 1120.16s [t=1135.46s]
+get_domain id_birat id_bbhost str__bf (1)
+get_computers id_birat id_adomain (1)
+creds id_birat id_bbhost id_adomain (1)
+net_use id_birat id_bbhost id_uhost str__y id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_bqshare (1)
+smb_copy id_birat id_bbhost str__bj id_bqshare id_bbhost id_uhost whatever id_byfile (1)
+net_use id_birat id_bbhost id_nhost str__r id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_bpshare (1)
+smb_copy id_birat id_bbhost str__bj id_bpshare id_bbhost id_nhost whatever id_bxfile (1)
+net_use id_birat id_bbhost id_ghost str__k id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_boshare (1)
+smb_copy id_birat id_bbhost str__bj id_boshare id_bbhost id_ghost whatever id_bwfile (1)
+get_admin id_birat id_uhost id_adomain (1)
+get_admin id_birat id_nhost id_adomain (1)
+get_admin id_birat id_ghost id_adomain (1)
+wmic id_birat id_bbhost id_ghost id_bwfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_burat (1)
+wmic id_birat id_bbhost id_nhost id_bxfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_bvrat (1)
+wmic id_birat id_bbhost id_uhost id_byfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_bsrat (1)
+Plan length: 15 step(s).
+Plan cost: 15
+Bytes per state: 20
+Search time: 1132.94s
+Total time: 1135.46s
+Solution found.
+Peak memory: 1126900 KB
+Running single search parser

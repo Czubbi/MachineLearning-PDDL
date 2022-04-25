@@ -1,0 +1,213 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: ['--grounding-action-queue-ordering', 'fifo']
+INFO     translator time limit: 1799.92s
+INFO     translator memory limit: 4096 MB
+INFO     callstring: /usr/bin/python3 /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/translate/translate.py domain.pddl problem.pddl --grounding-action-queue-ordering fifo
+time limit 1799.92 -> (1800, 1801)
+Parsing...
+Parsing: [0.010s CPU, 0.038s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.007s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.030s CPU, 0.028s wall-clock]
+Preparing model... [0.010s CPU, 0.019s wall-clock]
+Generated 285 rules.
+Using FIFO priority queue for actions.
+using default termination condition, i.e. grounding all actions.
+Computing model... [3.560s CPU, 3.588s wall-clock]
+no statistics available
+47970 relevant atoms
+8176 auxiliary atoms
+46873 actions instantiated
+56146 final queue length
+408776 total queue pushes
+Completing instantiation... [13.360s CPU, 13.461s wall-clock]
+Instantiating: [16.980s CPU, 17.124s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [0.260s CPU, 0.256s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+489 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.005s wall-clock]
+Computing fact groups: [0.270s CPU, 0.271s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.001s wall-clock]
+Building dictionary for full mutex groups... [0.010s CPU, 0.001s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.001s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.630s CPU, 0.635s wall-clock]
+Translating task: [15.680s CPU, 15.804s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+56 propositions removed
+Detecting unreachable propositions: [6.250s CPU, 6.311s wall-clock]
+Reordering and filtering variables...
+350 of 461 variables necessary.
+0 of 0 mutex groups necessary.
+39866 of 40258 operators necessary.
+0 of 0 axiom rules necessary.
+Reordering and filtering variables: [4.170s CPU, 4.197s wall-clock]
+Translator variables: 350
+Translator derived variables: 0
+Translator facts: 700
+Translator goal facts: 6
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 39866
+Translator axioms: 0
+Translator task size: 1015273
+Translator peak memory: 1641716 KB
+Writing output... [3.600s CPU, 3.734s wall-clock]
+Done! [47.310s CPU, 47.822s wall-clock]
+INFO     Running search (release32).
+INFO     search input: output.sas
+INFO     search arguments: ['--heuristic', 'hlm,hff=lm_ff_syn(lm_rhw(reasonable_orders=true,lm_cost_type=one),transform=adapt_costs(one))', '--search', 'lazy_greedy([hff,hlm],preferred=[hff,hlm],cost_type=one,reopen_closed=false)']
+INFO     search time limit: 1750.61s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/code-f24b670501a4/builds/release32/bin/downward --heuristic 'hlm,hff=lm_ff_syn(lm_rhw(reasonable_orders=true,lm_cost_type=one),transform=adapt_costs(one))' --search 'lazy_greedy([hff,hlm],preferred=[hff,hlm],cost_type=one,reopen_closed=false)' --internal-plan-file sas_plan < output.sas
+time limit 1750.61 -> (1751, 1752)
+reading input... [t=0.000198476s]
+done reading input! [t=1.26042s]
+packing state variables...done! [t=1.26049s]
+Variables: 350
+FactPairs: 700
+Bytes per state: 44
+Building successor generator...done! [t=1.35556s]
+peak memory difference for root successor generator creation: 13164 KB
+time for root successor generation creation: 0.0949601s
+done initializing global data [t=1.35571s]
+Initializing Exploration...
+Initializing landmarks count heuristic...
+Generating landmarks using the RPG/SAS+ approach
+approx. reasonable orders
+approx. obedient reasonable orders
+Removed 0 reasonable or obedient reasonable orders
+Landmarks generation time: 3.50475s
+Discovered 56 landmarks, of which 0 are disjunctive and 0 are conjunctive 
+180 edges
+Initializing LAMA-FF synergy object
+Conducting lazy best first search, (real) bound = 2147483647
+31 initial landmarks, 6 goal landmarks
+Switch from bucket-based to heap-based queue at key = 699, num_pushes = 545
+New best heuristic value for <missing>: 25
+New best heuristic value for <missing>: 27
+[g=0, 1 evaluated, 0 expanded, t=5.20433s, 107624 KB]
+Initial heuristic value for <missing>: 25
+Initial heuristic value for <missing>: 27
+New best heuristic value for <missing>: 23
+[g=1, 2 evaluated, 1 expanded, t=5.24008s, 107624 KB]
+New best heuristic value for <missing>: 18
+[g=2, 3 evaluated, 2 expanded, t=5.27613s, 107624 KB]
+New best heuristic value for <missing>: 12
+New best heuristic value for <missing>: 26
+[g=3, 4 evaluated, 3 expanded, t=5.3122s, 107624 KB]
+New best heuristic value for <missing>: 11
+New best heuristic value for <missing>: 25
+[g=4, 7 evaluated, 6 expanded, t=5.42315s, 107624 KB]
+New best heuristic value for <missing>: 10
+New best heuristic value for <missing>: 24
+[g=5, 11 evaluated, 10 expanded, t=5.57065s, 107624 KB]
+New best heuristic value for <missing>: 9
+New best heuristic value for <missing>: 22
+[g=6, 16 evaluated, 15 expanded, t=5.75756s, 107624 KB]
+New best heuristic value for <missing>: 8
+New best heuristic value for <missing>: 21
+[g=7, 21 evaluated, 20 expanded, t=5.94301s, 107624 KB]
+New best heuristic value for <missing>: 7
+New best heuristic value for <missing>: 20
+[g=8, 27 evaluated, 26 expanded, t=6.16926s, 107624 KB]
+New best heuristic value for <missing>: 6
+New best heuristic value for <missing>: 19
+[g=9, 34 evaluated, 33 expanded, t=6.42924s, 107624 KB]
+New best heuristic value for <missing>: 18
+[g=11, 52 evaluated, 51 expanded, t=7.09197s, 107624 KB]
+New best heuristic value for <missing>: 17
+[g=12, 58 evaluated, 57 expanded, t=7.31344s, 107624 KB]
+New best heuristic value for <missing>: 5
+[g=13, 62 evaluated, 61 expanded, t=7.45978s, 107624 KB]
+New best heuristic value for <missing>: 16
+[g=13, 64 evaluated, 63 expanded, t=7.53883s, 107624 KB]
+New best heuristic value for <missing>: 14
+[g=14, 74 evaluated, 73 expanded, t=7.91639s, 107624 KB]
+New best heuristic value for <missing>: 12
+[g=15, 83 evaluated, 82 expanded, t=8.25084s, 107624 KB]
+New best heuristic value for <missing>: 4
+New best heuristic value for <missing>: 11
+[g=17, 97 evaluated, 96 expanded, t=8.74081s, 107624 KB]
+New best heuristic value for <missing>: 10
+[g=18, 101 evaluated, 100 expanded, t=8.87681s, 107624 KB]
+New best heuristic value for <missing>: 3
+[g=19, 104 evaluated, 103 expanded, t=8.97818s, 107624 KB]
+New best heuristic value for <missing>: 9
+[g=20, 107 evaluated, 106 expanded, t=9.07817s, 107624 KB]
+New best heuristic value for <missing>: 7
+[g=21, 108 evaluated, 107 expanded, t=9.11107s, 107624 KB]
+New best heuristic value for <missing>: 2
+New best heuristic value for <missing>: 6
+[g=22, 114 evaluated, 113 expanded, t=9.30907s, 107624 KB]
+New best heuristic value for <missing>: 4
+[g=23, 117 evaluated, 116 expanded, t=9.40447s, 107624 KB]
+New best heuristic value for <missing>: 3
+[g=24, 120 evaluated, 118 expanded, t=9.49851s, 107624 KB]
+New best heuristic value for <missing>: 2
+[g=25, 122 evaluated, 119 expanded, t=9.55764s, 107624 KB]
+New best heuristic value for <missing>: 1
+New best heuristic value for <missing>: 1
+[g=26, 124 evaluated, 121 expanded, t=9.61643s, 107624 KB]
+Solution found!
+Actual search time: 4.4525s [t=9.62048s]
+get_domain id_cdrat id_bwhost str__cc (1)
+creds id_cdrat id_bwhost id_adomain (1)
+get_computers id_cdrat id_adomain (1)
+get_admin id_cdrat id_bbhost id_adomain (1)
+get_admin id_cdrat id_bihost id_adomain (1)
+get_admin id_cdrat id_bphost id_adomain (1)
+get_admin id_cdrat id_ghost id_adomain (1)
+get_admin id_cdrat id_nhost id_adomain (1)
+get_admin id_cdrat id_uhost id_adomain (1)
+net_use id_cdrat id_bwhost id_bihost str__bo id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_dfshare (1)
+net_use id_cdrat id_bwhost id_bphost str__bv id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_dgshare (1)
+smb_copy id_cdrat id_bwhost str__ce id_dfshare id_bwhost id_bihost whatever id_czfile (1)
+wmic id_cdrat id_bwhost id_bihost id_czfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_cnrat (1)
+net_use id_cdrat id_bwhost id_ghost str__m id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_dashare (1)
+net_use id_cdrat id_bwhost id_nhost str__t id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_dcshare (1)
+smb_copy id_cdrat id_bwhost str__ce id_dashare id_bwhost id_ghost whatever id_cyfile (1)
+wmic id_cnrat id_bihost id_ghost id_cyfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_csrat (1)
+smb_copy id_cdrat id_bwhost str__ce id_dcshare id_bwhost id_nhost whatever id_cxfile (1)
+wmic id_cnrat id_bihost id_nhost id_cxfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_cmrat (1)
+smb_copy id_cdrat id_bwhost str__ce id_dgshare id_bwhost id_bphost whatever id_cufile (1)
+net_use id_cdrat id_bwhost id_bbhost str__bh id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_deshare (1)
+wmic id_cnrat id_bihost id_bphost id_cufile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_cqrat (1)
+net_use id_cdrat id_bwhost id_uhost str__ba id_ddomaincredential str__e id_cdomainuser str__james id_adomain str__alpha id_ddshare (1)
+smb_copy id_cdrat id_bwhost str__ce id_ddshare id_bwhost id_uhost whatever id_cvfile (1)
+smb_copy id_cdrat id_bwhost str__ce id_deshare id_bwhost id_bbhost whatever id_cwfile (1)
+wmic id_cnrat id_bihost id_bbhost id_cwfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_cprat (1)
+wmic id_cprat id_bbhost id_uhost id_cvfile somepath id_ddomaincredential id_cdomainuser id_adomain str__alpha str__e id_corat (1)
+Plan length: 27 step(s).
+Plan cost: 27
+Expanded 122 state(s).
+Reopened 0 state(s).
+Evaluated 125 state(s).
+Evaluations: 250
+Generated 10681 state(s).
+Dead ends: 2 state(s).
+Number of registered states: 125
+Search time: 4.45257s
+Total time: 9.6205s
+Solution found.
+Peak memory: 107624 KB
+Running single search parser
+2018-07-26 01:27:25,559 ERROR    Pattern search time limit: (\d+)s not found in /mnt/data_server/gnad/lab-data/subdominization/old_servers/f24b670/fifo-relaxed-solvable-plus-x/runs-00001-00100/00080/run.log

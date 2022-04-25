@@ -1,0 +1,211 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.030s CPU, 0.022s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.005s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.020s CPU, 0.031s wall-clock]
+Preparing model... [0.020s CPU, 0.017s wall-clock]
+Generated 285 rules.
+Computing model... [0.230s CPU, 0.242s wall-clock]
+2845 relevant atoms
+1978 auxiliary atoms
+4823 final queue length
+23369 total queue pushes
+Completing instantiation... [0.460s CPU, 0.452s wall-clock]
+Instantiating: [0.740s CPU, 0.755s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [0.030s CPU, 0.031s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+231 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.003s wall-clock]
+Computing fact groups: [0.030s CPU, 0.037s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.010s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.010s CPU, 0.011s wall-clock]
+Translating task: [0.180s CPU, 0.189s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+240 operators removed
+0 axioms removed
+140 propositions removed
+Detecting unreachable propositions: [0.060s CPU, 0.059s wall-clock]
+Translator variables: 161
+Translator derived variables: 0
+Translator facts: 322
+Translator goal facts: 2
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 346
+Translator axioms: 0
+Translator task size: 7779
+Translator peak memory: 55492 KB
+Writing output... [0.010s CPU, 0.020s wall-clock]
+Done! [1.070s CPU, 1.090s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+102 variables of 161 necessary
+0 of 0 mutex groups necessary.
+306 of 346 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 204 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=10404, notReached=31008, spurious=204
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=38218, notReached=3194, spurious=204
+24 operators are spurious because were not triggered
+H^2 mutexes added fw: 3194, unreachable: 0
+0 of 282 operators detected as spurious
+Total mutex and disambiguation time: 0.02916 iterations: 2
+1597 of 1597 mutex groups necessary.
+282 of 306 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 282
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 102
+1597 of 1597 mutex groups necessary.
+282 of 282 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+102 variables of 102 of 161 necessary
+The causal graph is not acyclic.
+102 variables of 102 necessary
+1597 of 1597 mutex groups necessary.
+282 of 282 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 102
+Preprocessor facts: 204
+Preprocessor derived variables: 0
+Preprocessor operators: 282
+Preprocessor mutex groups: 1597
+Preprocessor task size: 9583
+Writing output...
+Preprocessor time: 0.128802s
+Preprocessor peak memory: 3448 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward --search 'sbd(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000181994s]
+done reading input! [t=0.0195687s]
+packing state variables...done! [t=0.0195905s]
+Variables: 102
+FactPairs: 204
+Bytes per state: 16
+Building successor generator...done! [t=0.022197s]
+done initalizing global data [t=0.022205s]
+Mutex type changed to mutex_and because the domain has conditional effects
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=and)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.00470307s]
+Sym variable order: 8 7 94 71 70 75 26 27 32 98 80 91 77 90 96 83 33 88 86 95 25 57 54 63 16 17 20 19 15 97 87 74 84 68 93 69 81 56 61 62 100 58 64 59 101 82 79 85 78 72 76 73 4 3 92 99 89 66 65 18 55 53 52 67 60 45 42 43 44 46 50 47 48 49 51 37 41 39 40 38 31 10 9 21 0 2 1 13 14 12 29 23 30 24 28 22 35 36 34 6 11 5 
+Initializing Symbolic Variables
+Num variables: 102 => 102
+Initialize Symbolic Manager(204, 78431, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 3.16345s
+BOUND: 2 < 2147483647, total time: 3.1654s
+BOUND: 3 < 2147483647, total time: 3.29391s
+BOUND: 4 < 2147483647, total time: 3.29434s
+BOUND: 5 < 2147483647, total time: 3.29491s
+BOUND: 6 < 2147483647, total time: 3.29602s
+BOUND: 7 < 2147483647, total time: 3.29751s
+BOUND: 8 < 2147483647, total time: 3.29946s
+BOUND: 9 < 2147483647, total time: 3.30225s
+BOUND: 10 < 2147483647, total time: 3.30777s
+BOUND: 11 < 2147483647, total time: 3.32119s
+BOUND: 12 < 2147483647, total time: 3.36448s
+Solution found with cost 12 total time: 3.6932s
+Merging: 1
+10 3.73495 1 2290
+Merging: 26
+9 3.8892 1 1244
+Merging: 9
+8 3.95173 1 254
+Merging: 6
+7 3.9642 1 403
+Merging: 14
+6 3.98728 1 462
+Merging: 14
+5 4.01131 1 494
+Merging: 15
+4 4.037 1 426
+Merging: 6
+3 4.05769 1 288
+Merging: 4
+2 4.07201 1 151
+Merging: 2
+1 4.07943 1 103
+Merging: 1
+2 4.08517 1 2290
+Merging: 20
+1 4.12731 1 1687
+BOUND: 12 < 12, total time: 4.14096s
+Actual search time: 0.978325s [t=4.14342s]
+get_domain id_bvrat id_bhhost str__bn (1)
+get_computers id_bvrat id_adomain (1)
+creds id_bvrat id_bhhost id_adomain (1)
+net_use id_bvrat id_bhhost id_bahost str__bg id_xdomaincredential str__y id_wdomainuser str__linda id_adomain str__alpha id_cbshare (1)
+smb_copy id_bvrat id_bhhost str__bw id_cbshare id_bhhost id_bahost whatever id_cdfile (1)
+get_admin id_bvrat id_bahost id_adomain (1)
+wmic id_bvrat id_bhhost id_bahost id_cdfile somepath id_xdomaincredential id_wdomainuser id_adomain str__alpha str__y id_bxrat (1)
+creds id_bxrat id_bahost id_adomain (1)
+net_use id_bvrat id_bhhost id_bohost str__bu id_tdomaincredential str__u id_sdomainuser str__robert id_adomain str__alpha id_cashare (1)
+get_admin id_bvrat id_bohost id_adomain (1)
+smb_copy id_bvrat id_bhhost str__bw id_cashare id_bhhost id_bohost whatever id_cefile (1)
+wmic id_bvrat id_bhhost id_bohost id_cefile somepath id_tdomaincredential id_sdomainuser id_adomain str__alpha str__u id_byrat (1)
+Plan length: 12 step(s).
+Plan cost: 12
+Bytes per state: 16
+Search time: 2.48042s
+Total time: 4.14343s
+Solution found.
+Peak memory: 358484 KB
+Running single search parser

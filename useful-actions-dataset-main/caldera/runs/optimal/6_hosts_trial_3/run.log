@@ -1,0 +1,446 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.020s CPU, 0.031s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.006s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.020s CPU, 0.031s wall-clock]
+Preparing model... [0.020s CPU, 0.020s wall-clock]
+Generated 285 rules.
+Computing model... [5.310s CPU, 5.393s wall-clock]
+60222 relevant atoms
+8342 auxiliary atoms
+68564 final queue length
+574499 total queue pushes
+Completing instantiation... [14.810s CPU, 14.908s wall-clock]
+Instantiating: [20.190s CPU, 21.038s wall-clock]
+Computing fact groups...
+Finding invariants...
+37 initial candidates
+Finding invariants: [0.460s CPU, 0.457s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+438 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.005s wall-clock]
+Computing fact groups: [0.470s CPU, 0.471s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.001s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.001s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.001s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.540s CPU, 0.539s wall-clock]
+Translating task: [10.310s CPU, 10.364s wall-clock]
+0 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+88 propositions removed
+Detecting unreachable propositions: [4.580s CPU, 4.605s wall-clock]
+Translator variables: 394
+Translator derived variables: 0
+Translator facts: 788
+Translator goal facts: 5
+Translator mutex groups: 0
+Translator total mutex groups size: 0
+Translator operators: 29185
+Translator axioms: 0
+Translator task size: 755484
+Translator peak memory: 667472 KB
+Writing output... [1.440s CPU, 1.707s wall-clock]
+Done! [37.300s CPU, 38.509s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+295 variables of 394 necessary
+0 of 0 mutex groups necessary.
+28933 of 29185 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 590 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=87025, notReached=260485, spurious=590
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=331088, notReached=16422, spurious=590
+2460 operators are spurious because were not triggered
+H^2 mutexes added fw: 16422, unreachable: 0
+0 of 26473 operators detected as spurious
+Total mutex and disambiguation time: 11.3298 iterations: 2
+8211 of 8211 mutex groups necessary.
+26473 of 28933 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 26473
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 295
+8211 of 8211 mutex groups necessary.
+26473 of 26473 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+295 variables of 295 of 394 necessary
+The causal graph is not acyclic.
+295 variables of 295 necessary
+8211 of 8211 mutex groups necessary.
+26473 of 26473 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 295
+Preprocessor facts: 590
+Preprocessor derived variables: 0
+Preprocessor operators: 26473
+Preprocessor mutex groups: 8211
+Preprocessor task size: 686666
+Writing output...
+Preprocessor time: 20.5397s
+Preprocessor peak memory: 107172 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_caldera/code-70296b3db083/builds/release32/bin/downward --search 'sbd(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000130604s]
+done reading input! [t=1.2997s]
+packing state variables...done! [t=1.29976s]
+Variables: 295
+FactPairs: 590
+Bytes per state: 40
+Building successor generator...done! [t=1.7917s]
+done initalizing global data [t=1.79174s]
+Mutex type changed to mutex_and because the domain has conditional effects
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=and)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.30083s]
+Sym variable order: 5 13 15 11 14 81 12 78 83 82 79 51 76 67 66 71 80 56 72 52 77 50 61 65 75 55 60 62 70 57 110 100 105 85 90 287 248 251 249 247 257 250 267 289 284 269 279 261 263 281 288 259 265 282 278 276 272 273 271 285 183 181 184 185 153 168 275 177 180 158 169 173 157 178 179 154 167 159 174 182 152 164 163 172 162 294 187 213 193 207 218 202 201 274 293 203 194 210 217 286 277 280 242 186 240 243 241 234 232 235 233 211 291 188 204 229 196 197 244 231 219 191 245 230 237 190 221 246 228 292 199 206 208 195 290 212 189 220 209 200 216 215 205 192 32 198 214 2 264 260 262 266 270 0 33 283 254 268 252 253 255 258 256 1 4 3 225 239 236 27 238 25 26 223 227 226 39 38 222 31 224 35 37 36 41 137 136 135 138 139 121 120 124 122 123 149 143 146 145 125 147 142 130 148 140 141 144 128 131 132 126 127 133 129 134 40 175 34 150 165 170 176 155 160 156 166 99 95 151 171 161 84 109 89 20 104 16 19 101 18 106 94 17 88 111 103 28 86 91 29 96 113 23 24 22 108 102 98 112 93 87 42 107 97 45 92 46 43 63 68 47 44 48 64 73 49 53 58 69 74 54 117 114 119 118 59 21 10 30 115 9 116 8 6 7 
+Initializing Symbolic Variables
+Num variables: 295 => 295
+Initialize Symbolic Manager(590, 27118, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 70.6232s
+Truncated in filter_mutex, took 28.7689 s, maxtime: 60000 maxNodes: 10000000
+BOUND: 2 < 2147483647, total time: 99.449s
+BOUND: 3 < 2147483647, total time: 99.506s
+BOUND: 4 < 2147483647, total time: 99.6073s
+BOUND: 5 < 2147483647, total time: 99.8731s
+BOUND: 6 < 2147483647, total time: 100.557s
+BOUND: 7 < 2147483647, total time: 103.662s
+BOUND: 8 < 2147483647, total time: 122.397s
+Truncated in filter_mutex, took 28.7354 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.552 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4337 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4148 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.3535 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.3816 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4251 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4431 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4556 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4433 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4292 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4516 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4166 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.3866 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4097 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4854 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4352 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4456 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.4271 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.427 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.3846 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1385 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.133 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1364 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1279 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1289 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1297 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1307 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1347 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.122 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1335 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1299 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1295 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.13 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1343 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1329 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1278 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1267 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1296 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1296 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1199 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.14 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1327 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1284 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1286 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.123 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1329 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1315 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1297 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1263 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1314 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1316 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1236 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1351 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1296 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1295 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1314 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1302 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1365 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1263 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1436 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1312 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1334 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1366 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.133 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1473 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1173 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1411 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1296 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1262 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1336 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1227 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1319 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1252 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1237 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.127 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1243 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1362 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1183 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1414 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1299 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1225 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1349 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1222 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1369 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1142 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1366 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.129 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1204 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1389 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1161 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1385 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1305 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1217 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.132 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1189 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.138 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1137 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1346 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1312 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1192 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1357 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1152 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1365 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1162 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1356 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1336 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1187 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.141 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1165 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.132 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1313 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1191 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1375 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1124 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1343 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1225 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1307 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1357 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1146 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1338 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1248 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1343 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1287 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1303 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1377 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1249 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1398 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1293 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1333 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.143 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1229 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1393 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1288 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1356 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1373 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1305 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1392 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 24.1189 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 23.8387 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Truncated in filter_mutex, took 23.4095 s, maxtime: 60000 maxNodes: 10000000
+    >> Truncated while preparing bucket
+Peak memory: 945960 KB
+caught signal 24 -- exiting
+Running single search parser

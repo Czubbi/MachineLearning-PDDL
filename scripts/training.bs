@@ -1,0 +1,8 @@
+# !./chuj/bin/python
+
+# source .chuj/bin/activate
+
+export TRAINING_FOLDER =  "xresults/sat_training_output_size3.csv"
+
+
+./src/subdominization-training/learning/select_features.py --training-folder $TRAINING_FOLDER --selector-type LOGR

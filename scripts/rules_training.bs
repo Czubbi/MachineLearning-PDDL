@@ -1,0 +1,26 @@
+# !bin/zsh
+# This will generate the rules for the subdomains
+# It uses the runs folder and domain file
+source .chuj/bin/activate
+
+
+# export RULES_FILE_SATELITE="xresults/sat_with_runs_size3.csv"
+# export RULES_FILE_DEPOTS="results/depots_with_runs.csv"
+ 
+export RUNS_DIR_SATELITE="useful-actions-dataset-main/satellite/runs/optimal"
+# export RUNS_DIR_DEPOTS="/Users/bartoszlachowicz/Desktop/Uni/useful-actions-dataset/depots/runs/optimal"
+
+# export TRAINING_OUTPUT_SATELITE="xresults/sat_training_output.csv"
+# export TRAINING_OUTPUT_DEPOTS="results/depo_training_output.csv"
+# "src/subdominization-training/gen-subdom-training.py"
+
+# # python ./src/subdominization-training/gen-subdom-rules.py --store_rules $RESULTS_FILE --rule_size 2 --runs $RUNS_DIR $DOMAIN_FILE
+# python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_DEPOTS $RULES_FILE_DEPOTS $TRAINING_OUTPUT_DEPOTS --instances-relevant-rules 10
+# python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_DEPOTS $RULES_FILE_DEPOTS $TRAINING_OUTPUT_DEPOTS
+# python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE $RULES_FILE_SATELITE $TRAINING_OUTPUT_SATELITE --instances-relevant-rules 10
+
+# Satelite size 3
+export RULES_FILE_SATELITE_SIZE3="xresults/sat_with_runs_size3.csv"
+export TRAINING_OUTPUT_SATELITE_SIZE3="xresults/sat_training_output_size3.csv"
+
+python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE $RULES_FILE_SATELITE_SIZE3 $TRAINING_OUTPUT_SATELITE_SIZE3

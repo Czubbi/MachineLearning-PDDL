@@ -1,0 +1,220 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_satellite/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.020s CPU, 0.023s wall-clock]
+Normalizing task... [0.000s CPU, 0.000s wall-clock]
+Instantiating...
+Generating Datalog program... [0.000s CPU, 0.001s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.000s CPU, 0.031s wall-clock]
+Preparing model... [0.010s CPU, 0.003s wall-clock]
+Generated 31 rules.
+Computing model... [0.040s CPU, 0.039s wall-clock]
+1468 relevant atoms
+297 auxiliary atoms
+1765 final queue length
+2919 total queue pushes
+Completing instantiation... [0.060s CPU, 0.071s wall-clock]
+Instantiating: [0.110s CPU, 0.213s wall-clock]
+Computing fact groups...
+Finding invariants...
+12 initial candidates
+Finding invariants: [0.000s CPU, 0.004s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.000s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+49 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.001s wall-clock]
+Computing fact groups: [0.000s CPU, 0.007s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.010s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.000s CPU, 0.003s wall-clock]
+Translating task: [0.060s CPU, 0.066s wall-clock]
+12 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+3 propositions removed
+Detecting unreachable propositions: [0.040s CPU, 0.038s wall-clock]
+Translator variables: 52
+Translator derived variables: 0
+Translator facts: 155
+Translator goal facts: 5
+Translator mutex groups: 3
+Translator total mutex groups size: 57
+Translator operators: 1197
+Translator axioms: 0
+Translator task size: 4187
+Translator peak memory: 48560 KB
+Writing output... [0.010s CPU, 0.127s wall-clock]
+Done! [0.250s CPU, 0.478s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_satellite/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+18 variables of 52 necessary
+0 of 3 mutex groups necessary.
+1061 of 1197 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 87 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=324, notReached=6189, spurious=1056
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=6499, notReached=14, spurious=1056
+0 operators are spurious because were not triggered
+H^2 mutexes added fw: 14, unreachable: 0
+0 of 1061 operators detected as spurious
+iteration for mutex detection and operator pruning
+Initialize m_index bw
+Init values regression
+Initialized mvalues backward: reached=3505, notReached=2994, spurious=1070
+Initialize m_ops bw
+Computing mutexes...
+Mutex computation finished with reached=6499, notReached=0, spurious=1070
+0 operators are spurious because were not triggered
+H^2 mutexes added bw: 0, unreachable: 0
+0 of 1061 operators detected as spurious
+Total mutex and disambiguation time: 0.033097 iterations: 2
+7 of 7 mutex groups necessary.
+1061 of 1061 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 1061
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 18
+7 of 7 mutex groups necessary.
+1061 of 1061 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+18 variables of 18 of 52 necessary
+The causal graph is not acyclic.
+18 variables of 18 necessary
+7 of 7 mutex groups necessary.
+1061 of 1061 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 18
+Preprocessor facts: 87
+Preprocessor derived variables: 0
+Preprocessor operators: 1061
+Preprocessor mutex groups: 7
+Preprocessor task size: 3362
+Writing output...
+Preprocessor time: 0.0616967s
+Preprocessor peak memory: 2756 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbd(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_satellite/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_satellite/code-70296b3db083/builds/release32/bin/downward --search 'sbd(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000131117s]
+done reading input! [t=0.00726871s]
+packing state variables...done! [t=0.00728213s]
+Variables: 18
+FactPairs: 87
+Bytes per state: 4
+Building successor generator...done! [t=0.00783595s]
+done initalizing global data [t=0.00784324s]
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=edeletion)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.000141613s]
+Sym variable order: 11 9 13 10 12 2 15 17 16 14 1 0 8 7 5 4 6 3 
+Initializing Symbolic Variables
+Num variables: 18 => 30
+Initialize Symbolic Manager(60, 266666, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 0.451556s
+BOUND: 2 < 2147483647, total time: 0.451867s
+BOUND: 3 < 2147483647, total time: 0.452254s
+BOUND: 4 < 2147483647, total time: 0.452657s
+BOUND: 5 < 2147483647, total time: 0.453178s
+BOUND: 6 < 2147483647, total time: 0.453978s
+BOUND: 7 < 2147483647, total time: 0.454722s
+BOUND: 8 < 2147483647, total time: 0.455844s
+BOUND: 9 < 2147483647, total time: 0.457457s
+BOUND: 10 < 2147483647, total time: 0.45923s
+BOUND: 11 < 2147483647, total time: 0.462313s
+BOUND: 12 < 2147483647, total time: 0.465181s
+Solution found with cost 12 total time: 0.46799s
+Merging: 1
+7 0.489403 1 184
+Merging: 41
+6 0.53875 1 167
+Merging: 45
+5 0.578168 1 139
+Merging: 41
+4 0.610287 1 104
+Merging: 51
+3 0.634561 1 126
+Merging: 20
+2 0.662259 1 117
+Merging: 16
+1 0.687663 1 79
+Merging: 1
+5 0.707871 1 184
+Merging: 45
+4 0.733506 1 162
+Merging: 41
+3 0.750148 1 181
+Merging: 45
+2 0.765297 1 165
+Merging: 41
+1 0.781209 1 124
+BOUND: 12 < 12, total time: 0.792465s
+Actual search time: 0.341495s [t=0.793106s]
+turn_to satellite0 star4 star18 (1)
+switch_on instrument0 satellite0 (1)
+calibrate satellite0 instrument0 star4 (1)
+turn_to satellite0 phenomenon17 star4 (1)
+take_image satellite0 phenomenon17 instrument0 infrared0 (1)
+turn_to satellite0 phenomenon15 phenomenon17 (1)
+take_image satellite0 phenomenon15 instrument0 infrared0 (1)
+turn_to satellite0 planet16 phenomenon15 (1)
+take_image satellite0 planet16 instrument0 infrared0 (1)
+turn_to satellite0 star18 planet16 (1)
+take_image satellite0 star18 instrument0 infrared0 (1)
+turn_to satellite2 star2 star5 (1)
+Plan length: 12 step(s).
+Plan cost: 12
+Bytes per state: 4
+Search time: 0.362601s
+Total time: 0.793117s
+Solution found.
+Peak memory: 270764 KB
+Running single search parser

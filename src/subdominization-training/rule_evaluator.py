@@ -11,7 +11,7 @@ class FreeVariableConstraint:
         def __init__(self, action_arguments_rule, free_variables, compliant_values):
                 self.action_arguments = action_arguments_rule
                 self.free_variables = free_variables
-                self.compliant_values = compliant_values
+                self.compliant_values = list(compliant_values)
 
         def action_args_domains (self):
                 domains = {}

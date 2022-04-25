@@ -1,0 +1,447 @@
+INFO     Running translator.
+INFO     translator input: ['domain.pddl', 'problem.pddl']
+INFO     translator arguments: []
+INFO     translator time limit: None
+INFO     translator memory limit: None
+INFO     callstring: /usr/bin/python /mnt/data_server/torralba/subdominization/training/data/training_agricola/code-70296b3db083/builds/release32/bin/translate/translate.py domain.pddl problem.pddl
+Parsing...
+Parsing: [0.030s CPU, 0.047s wall-clock]
+Normalizing task... [0.000s CPU, 0.001s wall-clock]
+Instantiating...
+Generating Datalog program... [0.010s CPU, 0.006s wall-clock]
+Normalizing Datalog program...
+Normalizing Datalog program: [0.010s CPU, 0.027s wall-clock]
+Preparing model... [0.020s CPU, 0.015s wall-clock]
+Generated 258 rules.
+Computing model... [0.650s CPU, 0.657s wall-clock]
+16379 relevant atoms
+1424 auxiliary atoms
+17803 final queue length
+60425 total queue pushes
+Completing instantiation... [3.810s CPU, 3.831s wall-clock]
+Instantiating: [4.520s CPU, 4.601s wall-clock]
+Computing fact groups...
+Finding invariants...
+44 initial candidates
+Finding invariants: [0.100s CPU, 0.100s wall-clock]
+Checking invariant weight... [0.000s CPU, 0.000s wall-clock]
+Instantiating groups... [0.000s CPU, 0.002s wall-clock]
+Collecting mutex groups... [0.000s CPU, 0.000s wall-clock]
+Choosing groups...
+114 uncovered facts
+Choosing groups: [0.000s CPU, 0.000s wall-clock]
+Building translation key... [0.000s CPU, 0.001s wall-clock]
+Computing fact groups: [0.100s CPU, 0.106s wall-clock]
+Building STRIPS to SAS dictionary... [0.000s CPU, 0.000s wall-clock]
+Building dictionary for full mutex groups... [0.000s CPU, 0.000s wall-clock]
+Building mutex information...
+Building mutex information: [0.000s CPU, 0.000s wall-clock]
+Translating task...
+Processing axioms...
+Simplifying axioms... [0.000s CPU, 0.000s wall-clock]
+Processing axioms: [0.120s CPU, 0.113s wall-clock]
+Translating task: [2.590s CPU, 2.601s wall-clock]
+17351 effect conditions simplified
+0 implied preconditions added
+Detecting unreachable propositions...
+0 operators removed
+0 axioms removed
+33 propositions removed
+Detecting unreachable propositions: [1.260s CPU, 1.259s wall-clock]
+Translator variables: 108
+Translator derived variables: 0
+Translator facts: 236
+Translator goal facts: 1
+Translator mutex groups: 5
+Translator total mutex groups size: 30
+Translator operators: 15755
+Translator axioms: 0
+Translator task size: 174294
+Translator peak memory: 204100 KB
+Writing output... [0.360s CPU, 0.488s wall-clock]
+Done! [8.930s CPU, 9.183s wall-clock]
+INFO     Running preprocessor (release32).
+INFO     preprocessor input: output.sas
+INFO     preprocessor arguments: []
+INFO     preprocessor time limit: None
+INFO     preprocessor memory limit: None
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_agricola/code-70296b3db083/builds/release32/bin/preprocess < output.sas
+Building causal graph...
+The causal graph is not acyclic.
+102 variables of 108 necessary
+0 of 5 mutex groups necessary.
+15755 of 15755 operators necessary.
+0 of 0 axiom rules necessary.
+Initializing mutex computation...
+Mutex computation initialized with 224 fluents.
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=10404, notReached=39270, spurious=502
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=43680, notReached=5994, spurious=502
+8551 operators are spurious because were not triggered
+Unreachable proposition: Atom harvest_phase(stage5, harvest_feeding)
+Unreachable proposition: Atom harvest_phase(stage5, harvest_breeding)
+H^2 mutexes added fw: 5106, unreachable: 2
+0 of 7204 operators detected as spurious
+iteration for mutex detection and operator pruning
+Initialize m_index bw
+Init values regression
+Initialized mvalues backward: reached=26749, notReached=16931, spurious=6496
+Initialize m_ops bw
+Computing mutexes...
+Mutex computation finished with reached=43652, notReached=28, spurious=6496
+0 operators are spurious because were not triggered
+H^2 mutexes added bw: 28, unreachable: 0
+0 of 7204 operators detected as spurious
+iteration for mutex detection and operator pruning
+Initialize m_index fw
+Initialized mvalues forward: reached=10404, notReached=33248, spurious=6524
+Initialize m_ops fw
+Computing mutexes...
+Mutex computation finished with reached=43652, notReached=0, spurious=6524
+0 operators are spurious because were not triggered
+H^2 mutexes added fw: 0, unreachable: 0
+0 of 7204 operators detected as spurious
+Total mutex and disambiguation time: 3.64133 iterations: 3
+2567 of 2567 mutex groups necessary.
+7204 of 15755 operators necessary.
+0 of 0 axiom rules necessary.
+Change id of operators: 7204
+Change id of mutexes
+Change id of goals
+Change id of initial state
+Remove unreachable facts from variables: 102
+2567 of 2567 mutex groups necessary.
+7204 of 7204 operators necessary.
+0 of 0 axiom rules necessary.
+Updating causal graph and pruning unnecessary facts
+100 variables of 102 of 108 necessary
+The causal graph is not acyclic.
+99 variables of 100 necessary
+2505 of 2567 mutex groups necessary.
+7204 of 7204 operators necessary.
+0 of 0 axiom rules necessary.
+Building domain transition graphs...
+solveable in poly time 0
+Building successor generator...
+Preprocessor variables: 99
+Preprocessor facts: 218
+Preprocessor derived variables: 0
+Preprocessor operators: 7204
+Preprocessor mutex groups: 2505
+Preprocessor task size: 80390
+Writing output...
+Preprocessor time: 4.4289s
+Preprocessor peak memory: 54580 KB
+done
+INFO     Running search (release32).
+INFO     search input: output
+INFO     search arguments: ['--search', 'sbw(store_operators_in_optimal_plan=true, cost_type=1)']
+INFO     search time limit: 3600s
+INFO     search memory limit: 4096 MB
+INFO     search executable: /mnt/data_server/torralba/subdominization/training/data/training_agricola/code-70296b3db083/builds/release32/bin/downward
+INFO     callstring: /mnt/data_server/torralba/subdominization/training/data/training_agricola/code-70296b3db083/builds/release32/bin/downward --search 'sbw(store_operators_in_optimal_plan=true, cost_type=1)' --internal-plan-file sas_plan < output
+time limit 3600.00 -> (3600, 3601)
+reading input... [t=0.000161568s]
+done reading input! [t=0.120008s]
+packing state variables...done! [t=0.120052s]
+Variables: 99
+FactPairs: 218
+Bytes per state: 16
+Building successor generator...done! [t=0.159241s]
+done initalizing global data [t=0.159269s]
+TR(time=60000, nodes=100000)
+Mutex(time=60000, nodes=100000, type=edeletion)
+Aux(time=2000, nodes=1000000)
+Disj(nodes=2147483647)
+Estimation: min_time(1000) time_penalty +(1000)*(2) nodes_penalty +(1000)*(2)
+MaxStep(time=30000, nodes=100000000, nodes_per_planning_second=100)
+Ratio useful: 0
+   Min alloted time: 60000 nodes: 10000000
+   Max alloted time: 60000 nodes: 15000000
+   Mult alloted time: 2 nodes: 2
+   Ratio after relax: 0.8
+building causal graph...done! [t=0.0118349s]
+Sym variable order: 4 19 14 15 16 17 18 26 43 41 13 37 46 45 44 48 39 40 42 38 70 64 59 61 71 58 60 62 92 78 81 79 75 86 95 33 25 63 31 74 73 68 96 69 32 28 29 30 27 49 47 34 36 35 72 24 23 87 82 80 20 22 88 77 67 66 65 76 97 85 84 83 94 93 3 2 12 0 10 11 8 1 21 9 91 90 89 53 52 51 50 57 56 54 55 5 6 7 98 
+Initializing Symbolic Variables
+Num variables: 99 => 106
+Initialize Symbolic Manager(212, 75471, 16000000, 0)
+Generating binary variables
+Symbolic Variables... Done.
+BOUND: 1 < 2147483647, total time: 2.22242s
+BOUND: 2 < 2147483647, total time: 2.23106s
+BOUND: 3 < 2147483647, total time: 2.23305s
+BOUND: 4 < 2147483647, total time: 2.23491s
+BOUND: 5 < 2147483647, total time: 2.23728s
+BOUND: 6 < 2147483647, total time: 2.24003s
+BOUND: 7 < 2147483647, total time: 2.24627s
+BOUND: 8 < 2147483647, total time: 2.27462s
+BOUND: 9 < 2147483647, total time: 2.33086s
+BOUND: 10 < 2147483647, total time: 2.39418s
+BOUND: 11 < 2147483647, total time: 2.43262s
+BOUND: 12 < 2147483647, total time: 2.45883s
+BOUND: 13 < 2147483647, total time: 2.49595s
+BOUND: 14 < 2147483647, total time: 2.57303s
+BOUND: 15 < 2147483647, total time: 2.67225s
+BOUND: 16 < 2147483647, total time: 2.74722s
+BOUND: 17 < 2147483647, total time: 2.78008s
+BOUND: 18 < 2147483647, total time: 2.78938s
+BOUND: 19 < 2147483647, total time: 2.7987s
+BOUND: 20 < 2147483647, total time: 2.81339s
+BOUND: 21 < 2147483647, total time: 2.85289s
+BOUND: 22 < 2147483647, total time: 2.92665s
+BOUND: 23 < 2147483647, total time: 3.01855s
+BOUND: 24 < 2147483647, total time: 3.14642s
+BOUND: 25 < 2147483647, total time: 3.31489s
+BOUND: 26 < 2147483647, total time: 3.50275s
+BOUND: 27 < 2147483647, total time: 3.62839s
+BOUND: 28 < 2147483647, total time: 3.69932s
+BOUND: 29 < 2147483647, total time: 3.77457s
+BOUND: 30 < 2147483647, total time: 3.90966s
+BOUND: 31 < 2147483647, total time: 4.02717s
+BOUND: 32 < 2147483647, total time: 4.09166s
+BOUND: 33 < 2147483647, total time: 4.129s
+BOUND: 34 < 2147483647, total time: 4.17087s
+BOUND: 35 < 2147483647, total time: 4.21893s
+BOUND: 36 < 2147483647, total time: 4.24937s
+BOUND: 37 < 2147483647, total time: 4.26709s
+BOUND: 38 < 2147483647, total time: 4.30811s
+BOUND: 39 < 2147483647, total time: 4.40819s
+BOUND: 40 < 2147483647, total time: 4.53677s
+BOUND: 41 < 2147483647, total time: 4.63557s
+BOUND: 42 < 2147483647, total time: 4.67141s
+BOUND: 43 < 2147483647, total time: 4.6973s
+BOUND: 44 < 2147483647, total time: 4.76341s
+BOUND: 45 < 2147483647, total time: 4.87447s
+BOUND: 46 < 2147483647, total time: 4.95549s
+BOUND: 47 < 2147483647, total time: 4.98957s
+BOUND: 48 < 2147483647, total time: 5.00203s
+BOUND: 49 < 2147483647, total time: 5.01169s
+BOUND: 50 < 2147483647, total time: 5.02751s
+BOUND: 51 < 2147483647, total time: 5.05388s
+BOUND: 52 < 2147483647, total time: 5.06961s
+BOUND: 53 < 2147483647, total time: 5.07792s
+BOUND: 54 < 2147483647, total time: 5.08226s
+BOUND: 55 < 2147483647, total time: 5.08469s
+BOUND: 56 < 2147483647, total time: 5.08792s
+BOUND: 57 < 2147483647, total time: 5.09304s
+BOUND: 58 < 2147483647, total time: 5.09988s
+BOUND: 59 < 2147483647, total time: 5.1087s
+BOUND: 60 < 2147483647, total time: 5.11852s
+BOUND: 61 < 2147483647, total time: 5.12892s
+BOUND: 62 < 2147483647, total time: 5.13634s
+BOUND: 63 < 2147483647, total time: 5.1407s
+BOUND: 64 < 2147483647, total time: 5.14334s
+BOUND: 65 < 2147483647, total time: 5.14797s
+BOUND: 66 < 2147483647, total time: 5.15286s
+Solution found with cost 66 total time: 5.15631s
+Merging: 1
+66 5.74931 1 107
+Merging: 8
+65 5.76923 1 291
+Merging: 8
+64 5.81494 1 618
+Merging: 1
+63 5.89026 1 618
+Merging: 4
+62 5.95745 1 160
+Merging: 1
+61 5.98624 1 160
+Merging: 12
+60 6.01757 1 557
+Merging: 12
+59 6.09205 1 1317
+Merging: 1
+58 6.21861 1 1317
+Merging: 4
+57 6.34572 1 280
+Merging: 1
+56 6.37758 1 280
+Merging: 16
+55 6.41873 1 1222
+Merging: 16
+54 6.54264 1 2593
+Merging: 1
+53 6.74135 1 2593
+Merging: 4
+52 6.97171 1 317
+Merging: 1
+51 7.0095 1 317
+Merging: 19
+50 7.05988 1 1664
+Merging: 19
+49 7.22936 1 4056
+Merging: 1
+48 7.50234 1 4056
+Merging: 4
+47 7.77563 1 436
+Merging: 1
+46 7.82156 1 436
+Merging: 5
+45 7.86768 1 417
+Merging: 1
+44 7.91414 1 417
+Merging: 1
+43 7.95941 1 417
+Merging: 21
+42 8.01265 1 2220
+Merging: 30
+41 8.20996 1 7393
+Merging: 1
+40 8.62598 1 7393
+Merging: 4
+39 9.12919 1 869
+Merging: 1
+38 9.16999 1 869
+Merging: 56
+37 9.24129 1 4780
+Merging: 70
+36 9.53094 1 13321
+Merging: 1
+35 10.0292 1 13321
+Merging: 4
+34 10.6407 1 1290
+Merging: 1
+33 10.6802 1 1290
+Merging: 80
+32 10.7576 1 5591
+Merging: 77
+31 11.0665 1 13430
+Merging: 1
+30 11.561 1 13430
+Merging: 4
+29 12.1855 1 1247
+Merging: 1
+28 12.2435 1 1247
+Merging: 15
+27 12.3009 1 1195
+Merging: 1
+26 12.3569 1 1195
+Merging: 1
+25 12.408 1 1195
+Merging: 101
+24 12.496 1 6264
+Merging: 121
+23 12.9246 1 17965
+Merging: 1
+22 13.4745 1 17965
+Merging: 4
+21 14.2191 1 1727
+Merging: 1
+20 14.2631 1 1727
+Merging: 137
+19 14.3716 1 6170
+Merging: 134
+18 14.8105 1 15740
+Merging: 1
+17 15.3546 1 15740
+Merging: 4
+16 16.0302 1 1378
+Merging: 1
+15 16.0875 1 1378
+Merging: 21
+14 16.1455 1 1342
+Merging: 1
+13 16.2029 1 1342
+Merging: 1
+12 16.2576 1 1342
+Merging: 128
+11 16.3562 1 6607
+Merging: 145
+10 16.8568 1 19400
+Merging: 1
+9 17.4226 1 19400
+Merging: 4
+8 18.1512 1 1502
+Merging: 1
+7 18.1926 1 1502
+Merging: 161
+6 18.2991 1 6482
+Merging: 158
+5 18.8215 1 18837
+Merging: 2
+4 19.4111 1 18836
+Merging: 4
+3 20.2178 1 1825
+Merging: 1
+2 20.2881 1 1825
+Merging: 42
+1 20.3601 1 1742
+BOUND: 66 < 66, total time: 20.4298s
+Actual search time: 18.2105s [t=20.4329s]
+collect_resource worker2 worker1 worker2 round1 act_clay clay (60)
+collect_resource worker1 noworker worker2 round1 act_reed reed (60)
+ag__finish_round_backhome round1 worker2 (1)
+ag__finish_round_renew round1 noworker (1)
+ag__advance_round_normal round1 round2 act_sow (1)
+collect_resource worker2 worker1 worker2 round2 act_clay clay (60)
+collect_resource worker1 noworker worker2 round2 act_reed reed (60)
+ag__finish_round_backhome round2 worker2 (1)
+ag__finish_round_renew round2 noworker (1)
+ag__advance_round_normal round2 round3 act_fences (1)
+build_fences boar worker2 worker1 worker2 round3 (60)
+take_food worker1 noworker worker2 round3 num2 num3 (60)
+ag__finish_round_backhome round3 worker2 (1)
+ag__finish_round_renew round3 noworker (1)
+ag__advance_round_normal round3 round4 act_sheep (1)
+build_fences boar worker2 worker1 worker2 round4 (60)
+take_food worker1 noworker worker2 round4 num3 num4 (60)
+ag__finish_round_backhome round4 worker2 (1)
+ag__finish_round_renew round4 noworker (1)
+ag__harvest_collect_end round4 stage1 (1)
+ag__harvest_feed round4 stage1 worker2 num4 num4 num0 (1)
+ag__harvest_breed_end round4 stage1 (1)
+ag__finish_stage stage1 stage2 round4 round5 act_improve (1)
+build_fences boar worker2 worker1 worker2 round5 (60)
+collect_animal boar act_sheep worker1 noworker worker2 round5 (60)
+ag__finish_round_backhome round5 worker2 (1)
+ag__finish_round_renew round5 noworker (1)
+ag__advance_round_normal round5 round6 act_boar (1)
+collect_resource worker2 worker1 worker2 round6 act_stone stone (60)
+improve_home worker1 noworker worker2 round6 fireplace (60)
+ag__finish_round_backhome round6 worker2 (1)
+ag__finish_round_renew round6 noworker (1)
+ag__advance_round_normal round6 round7 act_carrot (1)
+collect_cook_animal boar act_boar worker2 worker1 worker2 round7 num0 num2 (60)
+collect_cook_animal boar act_sheep worker1 noworker worker2 round7 num2 num4 (60)
+ag__finish_round_backhome round7 worker2 (1)
+ag__finish_round_renew round7 noworker (1)
+ag__harvest_collect_end round7 stage2 (1)
+ag__harvest_feed round7 stage2 worker2 num4 num4 num0 (1)
+ag__harvest_breed_end round7 stage2 (1)
+ag__finish_stage stage2 stage3 round7 round8 act_cattle (1)
+build_fences boar worker2 worker1 worker2 round8 (60)
+collect_animal boar act_sheep worker1 noworker worker2 round8 (60)
+ag__finish_round_backhome round8 worker2 (1)
+ag__finish_round_renew round8 noworker (1)
+ag__advance_round_normal round8 round9 void (1)
+collect_cook_animal boar act_cattle worker2 worker1 worker2 round9 num0 num2 (60)
+collect_cook_animal boar act_sheep worker1 noworker worker2 round9 num2 num4 (60)
+ag__finish_round_backhome round9 worker2 (1)
+ag__finish_round_renew round9 noworker (1)
+ag__harvest_collect_end round9 stage3 (1)
+ag__harvest_feed round9 stage3 worker2 num4 num4 num0 (1)
+ag__harvest_breed_end round9 stage3 (1)
+ag__finish_stage stage3 stage4 round9 round10 void (1)
+build_fences boar worker2 worker1 worker2 round10 (60)
+collect_cook_animal boar act_sheep worker1 noworker worker2 round10 num0 num2 (60)
+ag__finish_round_backhome round10 worker2 (1)
+ag__finish_round_renew round10 noworker (1)
+ag__advance_round_normal round10 round11 void (1)
+build_fences boar worker2 worker1 worker2 round11 (60)
+collect_cook_animal boar act_sheep worker1 noworker worker2 round11 num2 num4 (60)
+ag__finish_round_backhome round11 worker2 (1)
+ag__finish_round_renew round11 noworker (1)
+ag__harvest_collect_end round11 stage4 (1)
+ag__harvest_feed round11 stage4 worker2 num4 num4 num0 (1)
+ag__harvest_breed_end round11 stage4 (1)
+Plan length: 66 step(s).
+Plan cost: 1364
+Bytes per state: 16
+Search time: 18.8494s
+Total time: 20.4329s
+Solution found.
+Peak memory: 383572 KB
+Running single search parser

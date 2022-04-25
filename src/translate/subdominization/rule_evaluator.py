@@ -34,7 +34,7 @@ class FreeVariableConstraint:
                         
                 for values in self.compliant_values:
                         for i, arg in enumerate(self.free_variables):
-                                domains[arg].add (values[len(self.action_arguments):][i])
+                                domains[arg].add(values[len(self.action_arguments):][i])
                 
                 return domains
 
