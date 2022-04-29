@@ -1,0 +1,8 @@
+# !bin/zsh
+
+# source .venv36/bin/activate
+
+export TRAINING_FOLDER="results/sat_training_output_size3/"
+
+
+python ./src/subdominization-training/learning/train_model_for_domain.py --training-folder $TRAINING_FOLDER --selector-type LOGR

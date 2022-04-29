@@ -191,7 +191,8 @@ def get_free_variable_domains (constraints):
         
 
 class RuleEval:
-    def __init__(self, rule_text, task):
+    """One rule eval is created for many equal heads"""
+    def __init__(self, rule_text, task: pddl.Task):
         #print("Loading: " + rule_text)
         self.text = rule_text.replace('\n','')
         head, body = rule_text.split(":-")
@@ -223,14 +224,54 @@ class RuleEval:
                  print("Error: unknown rule ", rule_type, rule)
                  exit()
             
+
+            # This map will map elements from arguments to indicies of their first occurence in action_arguments
+            # Example:               0         1       2
+                # action argument = ['?s', '?d_new', '?d_prev']
+                # arguments = ('?d_new', '?d_prev')
+                # action_arguments_rule = (1, 2)
+
             action_arguments_rule = tuple(map(lambda x : action_arguments.index(x),  filter(lambda x : x in action_arguments, arguments)))
-            free_variables = tuple (filter(lambda x : x not in action_arguments, arguments))
+            free_variables = tuple (filter(lambda x : x not in action_arguments, arguments))  # e.g empty or ('?fv0',)
 
             if len(free_variables) == 0:
                 self.constraints.append(Constraint(action_arguments_rule, compliant_values))
             else:
+                # print(f'rule text: {rule_text}')
+                # print('head: ' + head)  # head: turn_to (?s, ?d_new, ?d_prev) 
+                # print('body: ' + body)  # body:  goal:pointing(_, ?d_prev),   body:  ini:calibration_target(?fv0, ?d_prev);ini:supports(?fv0, _).
+                # print(f'task {task.requirements}')
+                # print(f'rule {rule}')
+                # print(f'rule_type {rule_type}')
+                # print('--------------------')
+
+                # print(f'action arguments: {action_arguments}')
+                # print(f'arguments: {arguments}')
+                # # print(f'args inside action args: {tuple(filter(lambda i : arguments[i] in action_arguments, range(len(arguments))))}')
+                # # print(f'NOT INSIDE: {tuple(filter(lambda i : arguments[i] not in action_arguments, range(len(arguments))))}')
+
+                # print(f'free_variables: {free_variables}')
+
+                # First sequence are the arguments that are in the action_arguments, second sequence are the arguments that are not in the action_arguments (free variables)
+                # Example:
+                        # action_arguments: ['?s', '?d_new', '?d_prev']
+                        # arguments = ('?s', '?fv0')
+                        # first tuple (Inside arguments) = (0,)
+                        # second tuple (Outside arguments) = (1,)
+                        # pos = (0, 1)
+                # Side note: The order of arguments is random and can be both ('?s', '?fv0') and ('?fv0', '?s')
+
                 pos = tuple(filter(lambda i : arguments[i] in action_arguments, range(len(arguments)))) + tuple(filter(lambda i : arguments[i] not in action_arguments, range(len(arguments))))
+                # print(f'pos {pos}')  # (1,0)
+
+                # print(f'compliant values before: {compliant_values}')
                 compliant_values = map(lambda x : tuple ([x[i] for i in pos]), compliant_values)
+                # print('#########')
+                # print(f'compliant values after: {list(compliant_values)}')
+                # print(f'action_arguments_rule {action_arguments_rule}')
+                # print(f'free variables: {free_variables}')
+                # print('#########')
+
                 self.constraints.append(FreeVariableConstraint(action_arguments_rule, free_variables, compliant_values))
 
         self.set_domain()
