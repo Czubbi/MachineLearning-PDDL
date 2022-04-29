@@ -1,4 +1,5 @@
 .venv36/*
 results/*
 # ignore all files with .pyc extension
-./*.pyc
+*.pyc
+# */__pycache__/*
