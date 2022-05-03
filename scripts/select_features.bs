@@ -2,7 +2,7 @@
 
 # source .venv36/bin/activate
 
-export TRAINING_FOLDER="results/sat_training_output_size3/"
+export TRAINING_FOLDER="results/sat_training_output_size/"
 
 
 python ./src/subdominization-training/learning/select_features.py --training-folder $TRAINING_FOLDER --selector-type LOGR
