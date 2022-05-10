@@ -19,7 +19,7 @@ def train_model(model_folder, training_folder, model_type, keep_duplicate_featur
             if (is_python_3):
                 response = input("create output folder \"%s\"? Y/n" % model_folder)
             else:
-                response = raw_input("create output folder \"%s\"? Y/n" % model_folder)
+                response = input("create output folder \"%s\"? Y/n" % model_folder)
         if (yes_to_all or not response in ["no", "No", "NO", "n", "N"]):
             os.makedirs(model_folder)
         else:
@@ -47,7 +47,7 @@ def train_model(model_folder, training_folder, model_type, keep_duplicate_featur
                     if (is_python_3):
                         response = input("overwrite existing model files? y/N")
                     else:
-                        response = raw_input("overwrite existing model files? y/N")
+                        response = input("overwrite existing model files? y/N")
                     if (not response in ["no", "No", "NO", "n", "N"]):
                         overwrite_existing_files = True
                     else:
@@ -61,7 +61,7 @@ def train_model(model_folder, training_folder, model_type, keep_duplicate_featur
             print("training model from file ", curr_file)
             learned_model = LearnRules(training_file=curr_file, modelType=model_type, njobs=1, remove_duplicate_features=not keep_duplicate_features, take_max_for_duplicates=not mean_over_duplicates)
             if (not learned_model.is_empty):
-                print("writing model to file ", model_file, end="")
+                print("writing model to file ", model_file, "")
                 learned_model.saveToDisk(model_file)
                 print(" .. done")
             print()
