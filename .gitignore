@@ -2,4 +2,5 @@
 results/*
 # ignore all files with .pyc extension
 *.pyc
+.DS_Store
 # */__pycache__/*
