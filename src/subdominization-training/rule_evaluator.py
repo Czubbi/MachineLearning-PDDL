@@ -1,6 +1,7 @@
 from collections import defaultdict
 import itertools
 import pddl
+import logging
 
 def  valid_values(variables, values, variable_domains):
         assert (len (variables) == len(values))#, "Error: {} {}".format(str(variables), str(values)))
@@ -192,7 +193,11 @@ def get_free_variable_domains (constraints):
 
 class RuleEval:
     """One rule eval is created for many equal heads"""
+    def __repr__(self) -> str:
+        return f"""RuleEval(rule_text={self.our_rule_text})"""
     def __init__(self, rule_text, task: pddl.Task):
+        self.our_rule_text = rule_text
+
         #print("Loading: " + rule_text)
         self.text = rule_text.replace('\n','')
         head, body = rule_text.split(":-")
@@ -202,6 +207,7 @@ class RuleEval:
         action_arguments = action_arguments.replace(")", "").replace("\n", "").replace(".", "").replace(" ", "").split(",")
 
         for rule in body.split(";"):
+        #     print(f'This is the rule: {rule}')
             rule_type, rule = rule.split(":")
             rule_type = rule_type.strip()
 
@@ -233,7 +239,8 @@ class RuleEval:
 
             action_arguments_rule = tuple(map(lambda x : action_arguments.index(x),  filter(lambda x : x in action_arguments, arguments)))
             free_variables = tuple (filter(lambda x : x not in action_arguments, arguments))  # e.g empty or ('?fv0',)
-
+        #     print(f'these are the free variables: {free_variables}')
+        #     input('Free variables inside the RuleEval class')
             if len(free_variables) == 0:
                 self.constraints.append(Constraint(action_arguments_rule, compliant_values))
             else:
@@ -378,7 +385,7 @@ class RuleEval:
     
 class RulesEvaluator:
     def __init__(self, rule_text, task):
-        self.rules = defaultdict(list)
+        self.rules = defaultdict(list)  # This is a dictioray of rules, with the key being the action name
         for l in rule_text:
             re = RuleEval(l, task)
             self.rules[re.action_schema].append(re)
@@ -388,6 +395,12 @@ class RulesEvaluator:
             self.rules[a] = [rule for rule in self.rules[a] if rule.text not in rules_text]
             
     def evaluate(self, action_name, arguments):
+        
+        # logging.info(f'Evaluate {action_name} with arguments {arguments}')
+        # logging.info(f'Rules: {self.rules[action_name][0]}')
+        print(f'Evaluate {action_name} with arguments {arguments}')
+        # print(f'Rules: {self.rules[action_name]}')
+        input('break in the evaluate of Rules Evaluator')
         return [rule.evaluate(arguments) for rule in  self.rules[action_name]]
 
     def get_all_rules (self):

@@ -50,7 +50,7 @@ if __name__ == "__main__":
     argparser.add_argument("store_training_data", help="Directory to store the training data by gen-subdominization-training")    
     argparser.add_argument("--debug-info", help="Include action name in the file", action="store_true")    
     argparser.add_argument("--instances-relevant-rules", type=int, help="Number of instances for relevant rules", default=0)    
-    argparser.add_argument("--op-file", default="sas_plan", help="File to store the training data by gen-subdominization-training")    
+    argparser.add_argument("--op-file", default="good_operators", help="File to store the training data by gen-subdominization-training")    
     argparser.add_argument("--num-test-instances", type=int,default=0, help="Number of instances reserved for the testing set")
     argparser.add_argument("--max-training-examples", type=int, help="Maximum number of training examples for action schema", default=1000000)    
 
@@ -138,10 +138,11 @@ if __name__ == "__main__":
         all_operators_filename = '{}/{}/{}'.format(options.runs_folder, task_run, "all_operators.bz2")
            
         task = parsing_functions.parse_task(domain_pddl, task_pddl)
-    
+        # We create a Rule evaluator and load it with the rules we created in the subdom-rules
         re = RulesEvaluator(relevant_rules, task)
 
         #relaxed_reachable, atoms, actions, axioms, _ = instantiate.explore(task)
+        
         
         with open(plan_filename) as plan_file:
             plan = set(map (lambda x : tuple(x.replace("\n", "").replace(")", "").replace("(", "").split(" ")), plan_file.readlines()))
@@ -149,7 +150,7 @@ if __name__ == "__main__":
             skip_schemas_testing = [schema for schema, examples in testing_lines.items() if len(examples) >= options.max_training_examples]
             with bz2.BZ2File(all_operators_filename, "r") as actions:
             # relaxed_reachable, atoms, actions, axioms, _ = instantiate.explore(task)
-                for action in actions:
+                for action in actions:  # An action is a single line from all operators file.
                     action = action.decode("utf-8")
                     schema, arguments = action.split("(")
 
@@ -168,9 +169,11 @@ if __name__ == "__main__":
                     arguments = list(arguments)
                    
                     is_in_plan = 1 if  tuple([schema] + arguments) in plan else 0
-                   
+                    # print(f'The plan: {plan}')
+                    # input('plan')
                     eval = re.evaluate(schema, arguments)
-                    #print( ",".join(map (str, [action.name] + eval + [is_in_plan])) )
+                    # print( ",".join(map (str, [action] + eval + [is_in_plan])) )
+                    # input('go_to_next')
                 
                     new_line = ",".join(map (str, eval + [is_in_plan]))
                     if options.debug_info:

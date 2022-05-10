@@ -5,7 +5,7 @@ from __future__ import print_function
 
 from collections import defaultdict
 import itertools
-
+from typing import List
 from pddl_parser import parsing_functions
 from pddl_parser import lisp_parser
 import argparse
@@ -122,10 +122,25 @@ def read_runs_folder(runs_folder):
 
      return ini_predicates, goal_predicates
 
-class PartiallyInstantiatedPredicateList:    
+class PartiallyInstantiatedPredicateList:
+     def __repr__(self) -> str:
+          return f"PartiallyInstantiatedPredicateList(\
+action_name={self.action_schema.name},\
+predicate_list={self.predicate_list},\
+free_variables={self.free_variables})"\
+
+
+
+     # Example of action_scheme, [(p.name, combination)], a.parameters)
+     # action_scheme = <Action 'turn_to'>,
+     # predicate_list = [('on_board', ('_', '?s'))],
+     # params = [<TypedObject ?s: satellite>, <TypedObject ?d_new: direction>, <TypedObject ?d_prev: direction>]
+
      def __init__(self, action_schema, predicate_list, params, free_vars = []):
+
           self.action_schema = action_schema
           self.parameters = copy.deepcopy(params)
+          print(f'Free vars: {free_vars}')
 
           if len (free_vars) > 1:
                self.free_variables = []
@@ -163,29 +178,80 @@ class PartiallyInstantiatedPredicateList:
 
      def get_rules(self, predicates_ini, predicates_goal):
           rules = []
+          # print(f'This is the action: {a}')
+          # print(f'predicates_ini: {predicates_ini}')
+          # print(f'predicates_goal: {predicates_goal}')
+          # print(f'Predicate list: {self.predicate_list}')
+
+          # We are only making combinations that are restricted by presence of some predicate in either ini or goal setup
+          # As shown below, have_image is only present in the goal so there is no need to make combinations that include it in the ini
+          # Therefore all combination that start will ini will for sure not make sense
+          # Example
+               # predicates_ini: {'on_board', '=', 'power_avail', 'calibration_target', 'pointing', 'supports'}
+               # predicates_goal: {'pointing', 'have_image'}
+               # Predicate list: [('have_image', ('?fv0', '?m')), ('pointing', ('?fv1', '?fv0')), ('pointing', ('?fv1', '_'))]
+               # Skipped: ('ini', 'ini', 'ini')
+               # Skipped: ('ini', 'ini', 'goal')
+               # Skipped: ('ini', 'goal', 'ini')
+               # Skipped: ('ini', 'goal', 'goal')
+               # Used: ('goal', 'ini', 'ini')
+               # Used: ('goal', 'ini', 'goal')
+               # Used: ('goal', 'goal', 'ini')
+               # Used: ('goal', 'goal', 'goal')
+
           for combination in itertools.product(*[["ini", "goal"] for x in self.predicate_list]):
+
                if not all ([(combination[i] == "ini" and pred[0] in predicates_ini) or (combination[i] == "goal" and pred[0] in predicates_goal)  for (i, pred) in enumerate(self.predicate_list)]):
                     continue
+               
+               # Add either ini: or goal: to the predicates according to current combination, 
+               #  e.g if (ini, ini, goal) then 1st and 2nd predicate start with ini and 3rd with goal
                rule_text_list = ["{}:{}({})".format(combination[i], pred[0], ", ".join(pred[1])) for (i, pred) in enumerate(self.predicate_list)]
+               # print(f'rule_text_list: {rule_text_list}')
                if len(set (rule_text_list)) == len(rule_text_list):
                     rules.append(Rule(self.action_schema, ";".join(rule_text_list)))
-
           return rules
-
-     def extend(self, predicates, constants, type_dict):
+     
+     def extend(self, predicates: List[pddl.predicates.Predicate], constants, type_dict):
           res = []
-          
+          # print("############################################################################################")
+          # print(f'Action schema: {self.action_schema}')
+          # print(f'All predicates {predicates}')
+          # print(f'Local predicate list {self.predicate_list}')
+          # print(f'Free variables {self.free_variables}')
+          # print("############################################################################################")
+
           # Add a free variable in some of the predicates
           for p_index, pred in enumerate (self.predicate_list):
-               last_predicate = [p for p in predicates if p.name == pred[0]] [0]
+               print(f'The predicate {pred}')
+               original_predicate = [p for p in predicates if p.name == pred[0]] [0]
+               # Example
+                    # pred = 'pointing', ('?s', '_')
+                    # last_predicate = pointing(?s: satellite, ?d: direction)
+
+               # We iterate over the arguments of the predicate
+               # Example
+                    # Iter 0: '?s'
+                    # Iter 1: '_'
                for i, arg in enumerate(pred[1]):
+                    print(f'Argument {arg}')
                     if arg == "_":
-                         mandatory_argument = last_predicate.arguments[i]
+                         # Use the index of the current argument to retrieve the actual argument from the original_predicate object
+                         # if we have pointing('_'...) we want to find pointing(?s: satellite...)
+                         mandatory_argument = original_predicate.arguments[i]
                          mandatory_argument.name = "?fv%d" % len(self.free_variables)
-                         new_args = list(pred[1])
+                         new_args = list(pred[1])  # copy pred[1]
+                         print(f'new_args: {new_args}')
+                         # We replace the "_" with the new free variable name
+                         # Example
+                              # new_args = ('?s', '_') --> before
+                              # new_args = ('?s', '?fv0') --> after
                          new_args[i] = mandatory_argument.name
+
                          new_p_list = self.predicate_list[:p_index] + self.predicate_list[p_index+1:]
                          new_p_list.append((pred[0], tuple(new_args)) )
+                         
+                         # As free_variables is defined in constructor and is an object, it will be shared among all objects and behave as a class variable
                          for pre in get_predicate_combinations_with_mandatory_parameter(predicates, constants, type_dict, self.parameters, mandatory_argument):
                               res.append(PartiallyInstantiatedPredicateList(self.action_schema, new_p_list + [pre], self.parameters, self.free_variables + [mandatory_argument] ))
 
@@ -194,7 +260,9 @@ class PartiallyInstantiatedPredicateList:
                for pre in get_predicate_combinations_with_mandatory_parameter(predicates, constants, type_dict, self.parameters, fv):
                          res.append(PartiallyInstantiatedPredicateList(self.action_schema, self.predicate_list + [pre], self.parameters, self.free_variables ))
 
-
+          for r in res:
+               print(r)
+          # input("dawaj jazda")
           return res
 
      def __eq__ (self, other):
@@ -206,22 +274,65 @@ class PartiallyInstantiatedPredicateList:
           
 
 def get_predicate_combinations (predicates, constants, type_dict,  parameters):
+     """
+     parameters(of the action): [<TypedObject ?s: satellite>, <TypedObject ?d_new: direction>, <TypedObject ?d_prev: direction>]
+
+     
+     predicates: [on_board(?i: instrument, ?s: satellite), supports(?i: instrument, ?m: mode),
+                  pointing(?s: satellite, ?d: direction),  power_avail(?s: satellite), power_on(?i: instrument)
+                  calibrated(?i: instrument), have_image(?d: direction, ?m: mode), calibration_target(?i: instrument, ?d: direction)]
+
+     """
+     # print('Getting predicate combinations')
+     # print(f'Predicates: {predicates}')
+     # print(f'Constants: {constants}')
+     # print(f'Type dict: {type_dict}')
+     # print(f'Parameters: {parameters}')
+
      predicate_combinations = set()
-     for p in predicates:          
+     for p in predicates:
+          # print(f'looking at {p}')  # p.arguments: [<TypedObject ?i: instrument>, <TypedObject ?s: satellite>]
+
+
+          # _ is a wildcard if the parameter present in the current predicate is not present in the action
+          # If the parameter is present both in the action and current predicate then the name is simply the name of the parameter e.g "d_new?"
+          # Example:
+                    # action: [turn_to (?s, ?d_new, ?d_prev)    
+                    # predicate: on_board(?i: instrument, ?s: satellite)
+                    # valid_arguments_parameters: [['_'], ['_', '?s']]
+
           valid_arguments_parameters = [["_"] + [x.name for x in parameters if type_matches(type_dict, x.type_name, arg.type_name)] for arg in p.arguments]
           valid_arguments_constants = [["_"] + [x.name for x in constants if type_matches(type_dict, x.type_name, arg.type_name)] for arg in p.arguments]
+
+          # Example for combination 
+               # action = [turn_to (?s, ?d_new, ?d_prev)
+               # predicate = pointing(?s: satellite, ?d: direction)
+               # valid_arguments_parameters = [['_', '?s'], ['_', '?d_new', '?d_prev']]
+               # Combination: ('_', '_')
+               # Combination: ('_', '?d_new')
+               # Combination: ('_', '?d_prev')
+               # Combination: ('?s', '_')
+               # Combination: ('?s', '?d_new')
+               # Combination: ('?s', '?d_prev')
+               
           for combination in itertools.product(*valid_arguments_parameters):
+               # print(f'Combination: {combination}')
                if set(combination) == set("_"):
                     continue
 
                valid_arguments = [[x] if x != "_" else valid_arguments_constants[i] for (i, x) in enumerate (combination)]
                for combination in itertools.product(*valid_arguments):
+
+                    # Example of a, [(p.name, combination)], a.parameters)
+                    # a = <Action 'turn_to'> 
+                    # list of tuples of [(p.name, combination)] = [('on_board', ('_', '?s'))] 
+                    # [<TypedObject ?s: satellite>, <TypedObject ?d_new: direction>, <TypedObject ?d_prev: direction>]
+
                     predicate_combinations.add(PartiallyInstantiatedPredicateList(a, [(p.name, combination)], a.parameters))                        
-                    
+
      return predicate_combinations
 
 if __name__ == "__main__":
-
 
     argparser = argparse.ArgumentParser()
     argparser.add_argument("domain", type=argparse.FileType('r'), help="Domain file")
@@ -249,23 +360,26 @@ if __name__ == "__main__":
           predicates_goal = predicates_ini
           
     for a in actions:
-          print ("Generate candidate rules for action %s" % a.name)
-
+          # print(f'Action: {a}, {a.parameters}')
+          # print(f'Predicates: {predicates}')
           rules = get_equality_rules (type_dict, a)
+          # print(f'Equality rules: {rules}')
           predicate_combinations = list(get_predicate_combinations(predicates, constants, type_dict, a.parameters))
-
+          for pred in predicate_combinations:
+               # print(f'Predicate combination: {pred}')
+          # input('Basic Partially initialized predicates finished')
           i = 1
           while True:
               new_rules = [rule for predcom in predicate_combinations for rule in predcom.get_rules(predicates_ini, predicates_goal) ]
               rules += new_rules
-              print (i, len(new_rules))
 
               i += 1
               if len(rules) > options.num_rules or i > options.rule_size:
                   break
 
               predicate_combinations = set([pre for p in predicate_combinations for pre in p.extend(predicates, constants, type_dict)])
-
+          #     print('finished extending')
+          #     print(f'Predicate combinations: {predicate_combinations}')
                     
           if options.store_rules:
                options.store_rules.write("\n".join(map(str, rules)) + "\n")
@@ -273,8 +387,6 @@ if __name__ == "__main__":
                print("\n".join(map(str, rules)))
 
 
-          print (len(rules))
-          print()
 
 
 
