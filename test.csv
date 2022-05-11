@@ -1,0 +1,5 @@
+turn_to (?s, ?d_new, ?d_prev) :- goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);ini:pointing(_, ?fv0).
+turn_to (?s, ?d_new, ?d_prev) :- ini:calibration_target(?fv0, ?d_prev);ini:calibration_target(?fv0, ?fv1);ini:pointing(_, ?fv1).
+turn_to (?s, ?d_new, ?d_prev) :- ini:calibration_target(?fv0, ?d_prev);ini:calibration_target(?fv0, ?fv1);goal:pointing(_, ?fv1).
+switch_on (?i, ?s) :- ini:calibration_target(_, ?fv0);goal:have_image(?fv0, _);ini:pointing(?s, ?fv0).
+switch_on (?i, ?s) :- ini:calibration_target(_, ?fv0);goal:have_image(?fv0, _);goal:pointing(?s, ?fv0).
