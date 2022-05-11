@@ -1,6 +1,6 @@
 
 import pytest
-from postprocessing import get_free_variables, add_counts
+from postprocessing import get_free_variables, get_count_rules
 
 @pytest.mark.parametrize("body_str, expected", [
     # Correct order
@@ -61,7 +61,7 @@ def test_get_args(body_str, expected):
     )
 ])
 def test_add_counts(body_str, expected):
-    assert add_counts(body_str) == expected
+    assert get_count_rules(body_str) == expected
     # a = 1
     # b = 2
     # assert set([a,b]) == set([b,a])
