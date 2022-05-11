@@ -1,4 +1,5 @@
 
+from typing import Set
 import pytest
 from itertools import product
 
@@ -8,6 +9,7 @@ from itertools import product
 COUNT = 'count'
 
 def get_free_variables(body_str):
+    """Returns a set of free variables and wildcards in the body of a rule."""
     all_args_from_body = set()
 
     predicates = body_str.split(";")
@@ -21,9 +23,12 @@ def get_free_variables(body_str):
 
     return all_args_from_body
 
-def add_counts(rule_str):
+def add_counts(rule_str) -> Set[str]:
+    """
+    Creates extra rules out of the free variables(1 rule per 1 Fv) and appends predicate counts to the body.
+    If no free variables then an empty set is returned
+    """
     rules = set()
-    # rule_str = "turn_to (?s, ?d_new, ?d_prev) :- goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);ini:pointing(_, ?fv0)."
     free_variables = get_free_variables(rule_str)
     
     for fv in free_variables:
@@ -31,62 +36,3 @@ def add_counts(rule_str):
         rules.add(rule_str.replace(".", new_predicate))
     
     return rules
-        
-# for r in add_counts():
-#     print(r)
-
-
-
-@pytest.mark.parametrize("body_str, expected", [
-    # Correct order
-    (
-        "goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);ini:pointing(_, ?fv0).", 
-        set(["?fv0","_"])
-    ),
-    # No order
-    (
-        "goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);ini:pointing(_, ?fv0).", 
-        set(["_", "?fv0"])
-    ),
-    # No order
-
-    (
-        "goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);ini:pointing(_, ?fv0).", 
-        set(["_","?fv0"])
-    ),
-
-    # Correct order
-    (
-        "ini:turn_to(?fv1, ?fv2);goal:pointing(?fv3, ?fv0);ini:pointing(_, ?d).", 
-        set(['?fv1', '?fv2', '?fv3', '?fv0', '_'])
-    ),
-
-    # Correct order
-    (
-        "ini:pointing(_, ?d).", 
-        set(['_'])
-    ),
-    # Empty
-    (
-        "ini:pointing(?a, ?d).", 
-        set()
-    ),
-
-])
-def test_get_args(body_str, expected):
-    assert get_free_variables(body_str) == expected
-
-@pytest.mark.parametrize("body_str, expected", [
-    (
-        "ini:calibration_target(_, ?fv0);goal:have_image(?fv0, _);goal:pointing(?s, ?fv0).",
-        set([
-            "ini:calibration_target(_, ?fv0);goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);count(?fv0).",
-            "ini:calibration_target(_, ?fv0);goal:have_image(?fv0, _);goal:pointing(?s, ?fv0);count(_).",
-        ])
-    )
-])
-def test_add_counts(body_str, expected):
-    assert add_counts(body_str) == expected
-    # a = 1
-    # b = 2
-    # assert set([a,b]) == set([b,a])
