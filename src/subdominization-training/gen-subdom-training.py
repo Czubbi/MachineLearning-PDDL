@@ -71,6 +71,7 @@ if __name__ == "__main__":
 
     if options.instances_relevant_rules:
         training_re = RuleTrainingEvaluator(options.training_rules.readlines())
+
         i = 1
         for task_run in sorted(os.listdir(options.runs_folder)) [::-1]:
             if i > options.instances_relevant_rules:
@@ -108,7 +109,8 @@ if __name__ == "__main__":
         print ("Relevant rules: ", len(relevant_rules))
     else:
         relevant_rules = sorted([l for l in options.training_rules.readlines()])
-
+        # for r in relevant_rules:
+        #     print(bytes(r, "utf-8"))
     if not os.path.exists(options.store_training_data):
         os.makedirs(options.store_training_data)
 
@@ -120,9 +122,11 @@ if __name__ == "__main__":
     training_lines = defaultdict(list)
     testing_lines = defaultdict(list)
 
-
+    # All files from runs file
     all_instances = sorted([d for d in os.listdir(options.runs_folder) if os.path.isfile('{}/{}/{}'.format(options.runs_folder, d, operators_filename))])
+
     np.random.seed(2018)
+    # Randomly select files for testing
     testing_instances = np.random.choice(all_instances, int(options.num_test_instances), replace=False)
 
     for task_run in all_instances:        
@@ -135,9 +139,21 @@ if __name__ == "__main__":
         domain_pddl = parse_pddl_file("domain", domain_filename)
         task_pddl = parse_pddl_file("task", task_filename)
 
+
+        # Good operators or Sas plan
         all_operators_filename = '{}/{}/{}'.format(options.runs_folder, task_run, "all_operators.bz2")
            
         task = parsing_functions.parse_task(domain_pddl, task_pddl)
+        # print(f"Task: {dir(task)}")
+        # print(f"Objects: {task.objects}\n")
+        # print(f"Predicates: {task.predicates}\n")
+        # print(f"Actions: {task.actions}\n")
+        # print(f"Axioms: {task.axioms}\n")
+        # print(f"Init: {task.init}\n")
+        # print(f"Goal: {task.goal}\n")
+
+
+        # input("conitnue?")
         # We create a Rule evaluator and load it with the rules we created in the subdom-rules
         re = RulesEvaluator(relevant_rules, task)
 
@@ -153,6 +169,8 @@ if __name__ == "__main__":
                 for action in actions:  # An action is a single line from all operators file.
                     action = action.decode("utf-8")
                     schema, arguments = action.split("(")
+                    print(f"Action: {action}")
+                    # input(5)
 
                     #print(schema)
                     #print(arguments)

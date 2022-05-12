@@ -1,6 +1,6 @@
-a (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, _);count(_).
-c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count(?fv1).
-b (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0);count(?fv0).
-c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count(?fv0).
-c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count(_).
-b (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0);count(_).
+c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count:count(?fv1).
+b (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0);count:count(_).
+b (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0);count:count(?fv0).
+c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count:count(_).
+c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1);count:count(?fv0).
+a (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, _);count:count(_).

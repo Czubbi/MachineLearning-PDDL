@@ -1,3 +1,3 @@
-a (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, _).
-b (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0).
-c (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1).
+turn_to (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, _).
+turn_to (?s, ?d_new, ?d_prev) :- goal:have_image(?d_new, ?fv0);ini:supports(_, ?fv0).
+turn_to (?s, ?d_new, ?d_prev) :- goal:pointing(?fv0, ?d_new);goal:pointing(?fv0, ?fv1);ini:pointing(_, ?fv1).
