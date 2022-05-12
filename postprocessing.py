@@ -39,7 +39,7 @@ def get_count_rules(rule_str) -> Set[str]:
     free_variables = get_free_variables(body_str)
     
     for fv in free_variables:
-        new_predicate = f";count({fv})."
+        new_predicate = f";count:count({fv})."
         rules.add(rule_str.replace(".", new_predicate))
     
     return rules
