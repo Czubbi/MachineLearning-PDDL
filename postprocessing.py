@@ -96,7 +96,7 @@ def get_count_rules(body_str) -> Set[str]:
 def generate_extra_rules(rules_file:str):
     """Generate new file with extra rules using the add_counts function."""
     new_file_name = rules_file.split(".")[0] + "_count.csv"
-    all_new_rules = set()
+    new_rules_bodies = set()
 
     with open(rules_file, "r") as f:
         rules = f.readlines()
@@ -107,18 +107,17 @@ def generate_extra_rules(rules_file:str):
             if r =='':
                 break
             head, body_str = r.split(":-")
-            new_rule_body = replace_underscores(body_str)
-            new_rule = get_count_rules(new_rule_body)
+            bodies_with_undescores = replace_underscores(body_str)
+            bodies_with_count = get_count_rules(bodies_with_undescores)
 
-            all_new_rules.update(new_rule)
+            new_rules_bodies.update(bodies_with_count)
         
-        rules_with_counts = get_count_rules(r)  # get new rules
-        all_new_rules.update(rules_with_counts)
         print(f'Evaluated rule: {r}')
     
     with open(new_file_name, "w") as f:
-        for r in all_new_rules:
-            f.write(r +'\n')
+        for b in new_rules_bodies:
+            rule = head + ":- " + b + "\n"
+            f.write(rule)
 
 def replace_underscores(body_str):
     predicates = body_str.split(';')
