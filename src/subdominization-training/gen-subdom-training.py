@@ -53,7 +53,7 @@ if __name__ == "__main__":
     argparser.add_argument("--op-file", default="good_operators", help="File to store the training data by gen-subdominization-training")    
     argparser.add_argument("--num-test-instances", type=int,default=0, help="Number of instances reserved for the testing set")
     argparser.add_argument("--max-training-examples", type=int, help="Maximum number of training examples for action schema", default=1000000)    
-
+    argparser.add_argument("--count-rules", default=False, help="Should replace binary features with counting ones")
 
     options = argparser.parse_args()
     
@@ -72,14 +72,11 @@ if __name__ == "__main__":
     if options.instances_relevant_rules:
         training_re = RuleTrainingEvaluator(options.training_rules.readlines())
 
-        i = 1
         for task_run in sorted(os.listdir(options.runs_folder)) [::-1]:
             if i > options.instances_relevant_rules:
                 break
             if not os.path.isfile('{}/{}/{}'.format(options.runs_folder, task_run, operators_filename)):
                 continue
-            print (i)
-            i += 1
 
             domain_filename = '{}/{}/{}'.format(options.runs_folder, task_run, "domain.pddl")
             task_filename = '{}/{}/{}'.format(options.runs_folder, task_run, "problem.pddl")
@@ -169,7 +166,7 @@ if __name__ == "__main__":
                 for action in actions:  # An action is a single line from all operators file.
                     action = action.decode("utf-8")
                     schema, arguments = action.split("(")
-                    print(f"Action: {action}")
+                    # print(f"Action: {action}")
                     # input(5)
 
                     #print(schema)

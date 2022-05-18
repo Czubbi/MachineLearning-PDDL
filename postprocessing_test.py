@@ -1,12 +1,17 @@
 
 import pytest
-from postprocessing import get_free_variables, get_count_rules, replace_underscores
+import os
+from postprocessing import get_free_variables, get_count_rules, replace_underscores, generate_extra_rules
 from postprocessing import (
     POINTING_0,
     POINTING_1,
     SUPPORTS_0,SUPPORTS_1,
     ONBOARD_0,ONBOARD_1,POWER_AVAIL_0,
     POWER_ON_0,CALIBRATED_0,HAVE_IMAGE_0,HAVE_IMAGE_1,CALIBRATING_TARGET_0,CALIBRATING_TARGET_1)
+
+TEST_DIR = 'zzpostprocessing_data'
+BINARY_FILE = 'binary.csv'
+COUNT_FILE = 'count.csv'
 
 @pytest.mark.parametrize("body_str, expected", [
     # Correct order
@@ -79,9 +84,6 @@ def test_get_args(body_str, expected):
 def test_add_counts(body_str, expected):
     assert get_count_rules(body_str) == expected
 
-
-
-
 # Dynamically load from the problem number of certain objects for a given predicate
 @pytest.mark.parametrize("body_str, expected", [
     (
@@ -127,3 +129,36 @@ def test_replace_underscores(body_str, expected):
 #     )
 # ])
 # def test_rename_underscores()
+
+
+# # Dynamically load all test cases from zzpostprocessing_data
+# @pytest.mark.parametrize("body_str, expected", [
+    
+# def test_from_csv():
+#     test_
+# Get all directories
+# test_cases = os.listdir("zzpostprocessing_data")
+# for test_case in test_cases:
+#     expected_rules = None
+#     test_case_dir = os.path.join("zzpostprocessing_data", test_case)
+#     binary_rules_file = os.path.join(test_case_dir,  BINARY_FILE)
+#     expected_rules_file = os.path.join(test_case_dir, COUNT_FILE)
+#     with open(expected_rules_file, "r") as f:
+#         expected_rules = f.readlines()
+#     result_rules = generate_extra_rules(binary_rules_file)
+#     print(result_rules)
+#     print(expected_rules)
+#     assert sorted(result_rules) == sorted(expected_rules)
+
+# get test cases from zzpostprocessing_data
+@pytest.mark.parametrize("binary_rules_file, expected_rules_file",
+    [(os.path.join("zzpostprocessing_data", test_case, BINARY_FILE), os.path.join("zzpostprocessing_data", test_case, COUNT_FILE)) for test_case in os.listdir("zzpostprocessing_data")]
+)
+def test_from_csv(binary_rules_file, expected_rules_file):
+    with open(expected_rules_file, "r") as f:
+        expected_rules = f.readlines()
+    result_rules = generate_extra_rules(binary_rules_file, 'test_result')
+    print(result_rules)
+    print(expected_rules)
+    assert sorted(result_rules) == sorted(expected_rules)
+

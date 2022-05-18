@@ -63,7 +63,7 @@ def get_free_variables(body_str):
         args = pred.replace(" ", "").replace(".", "").replace(")","").split('(')[1].split(',')
 
         for arg in args:
-            print(f"This is the arg: {arg}")
+            # print(f"This is the arg: {arg}")
             if arg.startswith(' '):
                 raise Exception(f'Argument {arg} starts with a space')
             if arg.startswith('?fv') or arg.startswith('_'):
@@ -71,7 +71,7 @@ def get_free_variables(body_str):
 
     return all_args_from_body
 
-def get_count_rules(body_str) -> Set[str]:
+def get_count_rules(body_str, head) -> Set[str]:
     """
     Evaluate a single rule to create extra rules using the count predicate on the free variables:
         Example:
@@ -88,63 +88,105 @@ def get_count_rules(body_str) -> Set[str]:
     
     for fv in free_variables:
         new_predicate = f";count:count({fv})."
-        rules.add(body_str.replace(".", new_predicate))
+        rules.add(head+':-'+body_str.replace(".", new_predicate)+ "\n")
     
     return rules
 
 
-def generate_extra_rules(rules_file:str):
+def generate_extra_rules(rules_file:str, output_file=None):
     """Generate new file with extra rules using the add_counts function."""
-    new_file_name = rules_file.split(".")[0] + "_count.csv"
-    new_rules_bodies = set()
+    if output_file:
+        new_file_name = rules_file.split(".")[0] + output_file + '.csv'
+    else:
+        new_file_name = rules_file.split(".")[0] + "_count.csv"
+    
 
     with open(rules_file, "r") as f:
         rules = f.readlines()
+        new_rules = set()
 
         # Substitude underscores with named variables
-        for r in rules:
+        for r in sorted(rules):
+
+            # print(F"the rule is: {r}")
+            # input('continue ')
             r = r.replace("\n", "")
             if r =='':
                 break
             head, body_str = r.split(":-")
             bodies_with_undescores = replace_underscores(body_str)
-            bodies_with_count = get_count_rules(bodies_with_undescores)
+            print(f"Underscore: {bodies_with_undescores}")
+            if not bodies_with_undescores:
+                continue
+            bodies_with_count = get_count_rules(bodies_with_undescores, head)
 
-            new_rules_bodies.update(bodies_with_count)
+            new_rules.update(bodies_with_count)
         
-        print(f'Evaluated rule: {r}')
-    
-    with open(new_file_name, "w") as f:
-        for b in new_rules_bodies:
-            rule = head + ":- " + b + "\n"
-            f.write(rule)
+            print(f'Evaluated rule: {r}')
+
+        new_rules = sorted(new_rules)
+        with open(new_file_name, "w") as f:
+            for rule in new_rules:
+                print(f"Saving body {rule}")
+
+                f.write(rule)
+        return new_rules
 
 def replace_underscores(body_str):
+    print('body_str: ', body_str)
     predicates = body_str.split(';')
     new_rule = ''
-    underscore_args = set()
+    max_fv = -1
     for p in predicates:
+        prefix, suffix = p.strip('.').split(':')  # suffix = calibration_target(_, ?fv0)
+        predicate_name, arguments_str = suffix.split('(')  # predicate name = calibration_target, arguments = _, ?fv0)
+        arguments = arguments_str.strip(')').split(',')  # arguments = [_, ?fv0]
+        for arg in arguments:
+            arg = arg.strip()
+            if arg.startswith('?fv'):
+                fv_val = arg.split('fv')[1]
+                max_fv = max(max_fv, int(fv_val))
+    max_fv += 1
+    print(f'Max fv: {max_fv}')
+    for p in predicates:
+        # print(f"This is the predicate: {p}")
+        predicate_key = p.split(':')[1].split('(')[0]
+        # print(bytes(predicate_key, 'utf-8'))
+        if predicate_key == '':
+            return None
         current_setup = PREDICATES_SETUP[p.split(':')[1].split('(')[0]]
-        print(f'The predicate {p} has the following setup: {current_setup}')
         prefix, suffix = p.strip('.').split(':')  # suffix = calibration_target(_, ?fv0)
         predicate_name, arguments_str = suffix.split('(')  # predicate name = calibration_target, arguments = _, ?fv0)
         arguments = arguments_str.strip(')').split(',')  # arguments = [_, ?fv0]
         new_arguments = []
         for i, arg in enumerate(arguments):
+            print(f'Argument: {arg}')
+            
+            input(123)
             arg = arg.strip(' ')
             if arg == '_':
-                new_arguments = new_arguments + [current_setup[i]]
+                new_arguments.append(f'?fv{max_fv}')
+                max_fv +=1
             else:
-                new_arguments = new_arguments + [arg]
+                new_arguments.append(arg)
+            print(f'New Arguments: {new_arguments}')
         # rebuild the predicate
         new_predicate =f"{prefix}:{predicate_name}({', '.join(new_arguments)})"
         new_rule = new_rule + new_predicate + ';'
-        print('new_predicate: ', new_predicate)
 
     new_rule = new_rule[:-1]+'.'
     return new_rule
 
 
+import bz2
+import os
+folder_name = 'useful-actions-dataset-main/satellite/runs/optimal/00our'
+file_name = 'all_operators.bz2'
+file_path = os.path.join(folder_name, file_name)
 
+compressed_file = bz2.compress(open('all_operators', "rb").read())
+with open(file_path, 'wb') as f:
+    f.write(compressed_file)
 
-generate_extra_rules("test.csv")
+generate_extra_rules("test_count.csv", "extra_rules.csv")
+# generate_extra_rules("/Users/bartoszlachowicz/Desktop/Uni/MachineLearning-PDDL/results/sat_with_runs.csv")
