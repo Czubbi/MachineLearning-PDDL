@@ -60,20 +60,14 @@ class FreeVariableConstraint:
             return True
         return False
 
-    def evaluate(self, arguments, free_var_values=None):
-        # print constriant
-        # print(f'Evaluating {self}\n with Action arguments {arguments}')
+    def evaluate(self, arguments):
         values = tuple(map(lambda x: arguments[x],  self.action_arguments))
 
-        # print(f'###########This is the action argument: {values} #######')
         size_a = len(values)
         result = []
         for cv in self.compliant_values:
-            # print(f'This is the cv: {cv}')
             first_slice = cv[:size_a]
             second_slice = cv[size_a:]
-            # print(f'first slice: {first_slice}')
-            # print(f'second slice: {second_slice}')
             if values == first_slice:
                 # print('slices are the same')
                 result.append(second_slice)
@@ -112,17 +106,8 @@ class Constraint:
         return False
 
     def evaluate(self, arguments):
-        raise Exception('Calling non free variable evaluate')
-        print(f"Current constraint arguments: {arguments}")
         values = tuple(map(lambda x: arguments[x],  self.action_arguments))
-        print(f"THESE ARE THE VALUES FROM THE action arguments: {values}")
-        print(
-            f"THESE ARE THE VALUES FROM THE compliant values: {self.compliant_values}")
-        res = values in self.compliant_values
-
-        print(f"the old result:", res)
-        input("Press Enter to continue...")
-        return res
+        return values in self.compliant_values
 
 
 def evaluate_inigoal_rule(predicate, fact_list):
@@ -147,16 +132,9 @@ def evaluate_inigoal_rule(predicate, fact_list):
         positions_argument[a] = [
             i for (i, v) in enumerate(arguments) if v == a]
 
-    # print(f'predicate: {predicate}')
-    # print(f'Valid arguments: {valid_arguments}')
-    # print("positions_argument:", positions_argument)
-
-    # We are filtrating _ from the arguments
-    # Example of valid arguments: ['?d_prev', '?fv0']
     arguments = valid_arguments
     # Example of a fact: <Atom calibration_target(instrument0, star4)>
     for fact in fact_list:
-
         if type(fact) != pddl.Assign and fact.predicate == predicate_name and eval_constants(fact, constants):
             # print("####")
             # print(f'fact: {fact}')
@@ -205,14 +183,14 @@ class RuleEval:
     """One rule eval is created for many equal heads"""
 
     def __repr__(self) -> str:
-        return f"""RuleEval(text={self.text}; memorized_doms={self.memorized_domains}; action_arg_doms={self.action_argument_domains})"""
+        return f"""RuleEval(text={self.text}; action_arg_doms={self.action_argument_domains})"""
 
-    def __init__(self, rule_text, task: pddl.Task):
-        self.wildcard_values = defaultdict(lambda: defaultdict(set))
-        self.count_fv = rule_text.split('count:count')[1].strip(
-            '(').strip().strip('.)')  # get the element which we count on
-        # print(task.predicates[0].arguments[0].name)
-        # self.init_wildcard_vals(task)
+    def __init__(self, rule_text, task: pddl.Task, count_rules):
+        self.count_rules = count_rules
+        # input(f"Count rules and the type: {count_rules}, {type(count_rules)}")
+        if self.count_rules:
+            self.count_fv = rule_text.split('count:count')[1].strip(
+                '(').strip().strip('.)')  # get the element which we count on
 
         # print("#################################################")
         # print(f'Buildint constraints for this rule: {rule_text}')
@@ -226,19 +204,9 @@ class RuleEval:
         # This is because we want it to be a part of the evaluation (action_argument_domains)
         action_arguments = action_arguments.replace(")", "").replace(
             "\n", "").replace(".", "").replace(" ", "").split(",")
-        # TODO we can either treat the thing we count as Action argumnet or we can during the elemination process as the last one
-        self.action_arguments = action_arguments
-        # This will be used to retrieve the count values for each of the free variables
-        self.memorized_domains = None
         for predicate in body.split(";"):
-            #     print("#######################")
-            #     print(f'Evaluating a predicate {predicate}')
-            #     print("#######################")
-
             predicate_type, predicate = predicate.split(":")
             predicate_type = predicate_type.strip()
-        #     print(predicate_type)
-        #     input('wait')
 
             if predicate_type == "ini":
                 arguments, compliant_values = evaluate_inigoal_rule(
@@ -297,52 +265,15 @@ class RuleEval:
                 # print(f'compliant values before: {compliant_values}')
                 compliant_values = list(
                     map(lambda x: tuple([x[i] for i in pos]), compliant_values))
-                # print('#########')
-                # print(f'compliant values after: {list(compliant_values)}')
-                # print(f'action_arguments_rule {action_arguments_rule}')
-                # print(f'free variables: {free_variables}')
-                # print('#########')
-                # print(f"Free variables: {free_variables}")
+
                 self.constraints.append(FreeVariableConstraint(
                     action_arguments_rule, free_variables, compliant_values, predicate))
 
-                # input('self constraints FVC')
-
-        # print('--------------------------------')
-        # for c in self.constraints:
-            # print(c, '\n')
-        # input("added basic constraint")
 
         self.set_domain()
-        # print(self.free_variable_domains)  #
 
         while self.free_variable_domains:
             self.eliminate_free_variable()
-
-    def init_wildcard_vals(self, task: pddl.Task):
-        init = task.init
-        goal = task.goal.parts
-        predicates = task.predicates
-        predicate_map = {}
-        for p in predicates:
-            predicate_map[p.name] = p
-
-        for fact in init:
-            if fact.predicate == '=':
-                continue
-            predicate: pddl.Predicate = predicate_map[fact.predicate]
-            predicate_arguments = predicate.arguments
-            for i, arg in enumerate(fact.args):
-                # print(predicate.arguments[i].name)
-                current_argument = predicate.arguments[i].name.replace(
-                    '?', '_')
-                # print(current_argument)
-                # input('from init wildcards')
-                self.wildcard_values[predicate.name][current_argument].add(arg)
-
-        # print('Finished')
-        # pprint.pprint(self.wildcard_values)
-        # input('wait')
 
     def eliminate_free_variable(self):
         # Example {'?fv0': {'image1'}}
@@ -350,12 +281,13 @@ class RuleEval:
 
         # pop all but the one we are going to count
         fv, old_domain = self.free_variable_domains.popitem()
-        if fv == self.count_fv:
-            if len(self.free_variable_domains) == 0:
-                return
-            fv2, old_domain2 = self.free_variable_domains.popitem()
-            self.free_variable_domains[fv] = old_domain
-            fv, old_domain = fv2, old_domain2
+        if self.count_rules:
+            if fv == self.count_fv:
+                if len(self.free_variable_domains) == 0:
+                    return
+                fv2, old_domain2 = self.free_variable_domains.popitem()
+                self.free_variable_domains[fv] = old_domain
+                fv, old_domain = fv2, old_domain2
 
         # print(f'fv: {fv}')
         # print(f'old_domain: {old_domain}')
@@ -422,9 +354,6 @@ class RuleEval:
 
         self.constraints = [
             c for c in self.constraints if fv not in c.free_variables] + [new_constraint]
-        #     for c in self.constraints:
-        #          print(c)
-        #     input('eliminate stop?')
 
     def set_domain(self):
         self.action_argument_domains = {}
@@ -478,22 +407,20 @@ class RuleEval:
             # print(self.constraints)
             # input("Finished a constraint")
 
-    def evaluate(self, arguments, is_count_rule=True):
-
+    def evaluate(self, arguments):
+        if self.count_rules:
+            return self.evaluate_count_rules(arguments)
         if self.free_variable_domains:
-            raise("We have fv_doms")
             # for fv_values in itertools.product(*[valueset for x, valueset in self.free_variable_domains.items()]):
             return 0
-
-        if is_count_rule:
-            return self.evaluate_count_rules(arguments)
-
-        for c in self.constraints:
-            if not c.evaluate(arguments):
-                return False
-        return True
+        else:
+            for c in self.constraints:
+                if not c.evaluate(arguments):
+                    return 0
+            return 1
 
     def evaluate_count_rules(self, arguments):
+        assert self.count_rules
         res = set()
         is_first_constraint = True  # we need to do this else the intersection will be empty
         for c in self.constraints:
@@ -506,12 +433,11 @@ class RuleEval:
 
 
 class RulesEvaluator:
-    def __init__(self, rule_text, task):
-        # This is a dictioray of rules, with the key being the action name
+    def __init__(self, rule_text, task, count_rules):
         self.rules: Dict[str, List[RuleEval]] = defaultdict(list)
+        self.count_rules = count_rules
         for l in rule_text:
-            re = RuleEval(l, task)
-        #     print(f"Rule eval for {l}\n{re}")
+            re = RuleEval(l, task, count_rules)
             self.rules[re.action_schema].append(re)
 
     def eliminate_rules(self, rules_text):
@@ -520,19 +446,13 @@ class RulesEvaluator:
                              if rule.text not in rules_text]
 
     def evaluate(self, action_name, arguments):
-        # input('start evaluating')
-        # logging.info(f'Evaluate {action_name} with arguments {arguments}')
-        # logging.info(f'Rules: {self.rules[action_name][0]}')
-        # print(f'Evaluate {action_name} with arguments {arguments}')
-        # print(f'Rules: {self.rules[action_name]}')
+        if not self.count_rules:
+            return [rule.evaluate(arguments) for rule in  self.rules[action_name]]
         res = []
         for rule in self.rules[action_name]:
-            # print(f'evaluating a rule {rule}')
-            # print(f"The rule constraints: {rule.constraints}")
             evaluated_rule_result = rule.evaluate(
-                arguments, rule)
+                arguments)
             res.append(evaluated_rule_result)
-        # res = [rule.evaluate(arguments) for rule in  self.rules[action_name]]
         return res
 
     def get_all_rules(self):

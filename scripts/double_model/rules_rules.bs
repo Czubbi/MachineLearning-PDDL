@@ -1,0 +1,12 @@
+# !bin/zsh
+# This will generate the rules for the subdomains
+# It uses the runs folder and domain file
+source .venv36/bin/activate
+
+export DOMAIN_FILE_SATELITES="useful-actions-dataset-main/satellite/runs/optimal/p01-2-2-2-5-1/domain.pddl"
+
+export RUNS_DIR_SATELITE="useful-actions-dataset-main/satellite/runs/optimal"
+
+export RESULTS_FILE="double_models/rules.csv"
+
+python ./src/subdominization-training/gen-subdom-rules.py --store_rules $RESULTS_FILE --rule_size 3 --runs $RUNS_DIR_SATELITE $DOMAIN_FILE_SATELITES

@@ -84,10 +84,10 @@ class FeatureSelector():
         X, y = dataset.iloc[:,:-1], list(dataset.iloc[:, -1])
 
         # if we want to separate into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=0)
+        # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0, random_state=0)
 
-        X=X_train
-        y=y_train
+        # X=X_train
+        # y=y_train
 
         # Standarize features
         scaler = StandardScaler(copy=True, with_mean=True, with_std=True)

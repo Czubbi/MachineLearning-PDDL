@@ -20,8 +20,11 @@ export RUNS_DIR_SATELITE="useful-actions-dataset-main/satellite/runs/optimal"
 # python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE $RULES_FILE_SATELITE $TRAINING_OUTPUT_SATELITE --instances-relevant-rules 10
 
 # Satelite size 3
-export RULES_FILE_SATELITE_SIZE3="results/sat_with_runs.csv"
+export RULES_FILE_SATELITE_SIZE3="double_models/binary/sat_with_runs.csv"
+export COUNT_RULES_FILE="results/sat_with_runscount.csv"
 export TRAINING_OUTPUT_SATELITE_SIZE3="results/sat_training_output_size"
 
-# python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE $RULES_FILE_SATELITE_SIZE3 $TRAINING_OUTPUT_SATELITE_SIZE3
-python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE "results/test.csv" "results/count" --num-test-instances 1
+export MODEL2_BIN="double_models/binary"
+export MODEL2_COUNT="double_models/count"
+
+python src/subdominization-training/gen-subdom-training.py $RUNS_DIR_SATELITE $RULES_FILE_SATELITE_SIZE3 $MODEL2_BIN --count-rules False

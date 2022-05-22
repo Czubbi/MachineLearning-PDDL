@@ -1,5 +1,6 @@
 
 from typing import Set
+import argparse
 
 ONBOARD_0 = "_on_i"
 ONBOARD_1 = "_on_s"
@@ -96,7 +97,7 @@ def get_count_rules(body_str, head) -> Set[str]:
 def generate_extra_rules(rules_file:str, output_file=None):
     """Generate new file with extra rules using the add_counts function."""
     if output_file:
-        new_file_name = rules_file.split(".")[0] + output_file + '.csv'
+        new_file_name = output_file
     else:
         new_file_name = rules_file.split(".")[0] + "_count.csv"
     
@@ -115,25 +116,25 @@ def generate_extra_rules(rules_file:str, output_file=None):
                 break
             head, body_str = r.split(":-")
             bodies_with_undescores = replace_underscores(body_str)
-            print(f"Underscore: {bodies_with_undescores}")
+            # print(f"Underscore: {bodies_with_undescores}")
             if not bodies_with_undescores:
                 continue
             bodies_with_count = get_count_rules(bodies_with_undescores, head)
 
             new_rules.update(bodies_with_count)
         
-            print(f'Evaluated rule: {r}')
+            # print(f'Evaluated rule: {r}')
 
         new_rules = sorted(new_rules)
         with open(new_file_name, "w") as f:
             for rule in new_rules:
-                print(f"Saving body {rule}")
+                # print(f"Saving body {rule}")
 
                 f.write(rule)
         return new_rules
 
 def replace_underscores(body_str):
-    print('body_str: ', body_str)
+    # print('body_str: ', body_str)
     predicates = body_str.split(';')
     new_rule = ''
     max_fv = -1
@@ -147,7 +148,7 @@ def replace_underscores(body_str):
                 fv_val = arg.split('fv')[1]
                 max_fv = max(max_fv, int(fv_val))
     max_fv += 1
-    print(f'Max fv: {max_fv}')
+    # print(f'Max fv: {max_fv}')
     for p in predicates:
         # print(f"This is the predicate: {p}")
         predicate_key = p.split(':')[1].split('(')[0]
@@ -160,16 +161,16 @@ def replace_underscores(body_str):
         arguments = arguments_str.strip(')').split(',')  # arguments = [_, ?fv0]
         new_arguments = []
         for i, arg in enumerate(arguments):
-            print(f'Argument: {arg}')
+            # print(f'Argument: {arg}')
             
-            input(123)
+            # input(123)
             arg = arg.strip(' ')
             if arg == '_':
                 new_arguments.append(f'?fv{max_fv}')
                 max_fv +=1
             else:
                 new_arguments.append(arg)
-            print(f'New Arguments: {new_arguments}')
+            # print(f'New Arguments: {new_arguments}')
         # rebuild the predicate
         new_predicate =f"{prefix}:{predicate_name}({', '.join(new_arguments)})"
         new_rule = new_rule + new_predicate + ';'
@@ -178,15 +179,26 @@ def replace_underscores(body_str):
     return new_rule
 
 
-import bz2
-import os
-folder_name = 'useful-actions-dataset-main/satellite/runs/optimal/00our'
-file_name = 'all_operators.bz2'
-file_path = os.path.join(folder_name, file_name)
+# import bz2
+# import os
+# folder_name = 'useful-actions-dataset-main/satellite/runs/optimal/00our'
+# file_name = 'all_operators.bz2'
+# file_path = os.path.join(folder_name, file_name)
 
-compressed_file = bz2.compress(open('all_operators', "rb").read())
-with open(file_path, 'wb') as f:
-    f.write(compressed_file)
+# compressed_file = bz2.compress(open('all_operators', "rb").read())
+# with open(file_path, 'wb') as f:
+#     f.write(compressed_file)
 
-generate_extra_rules("test_count.csv", "extra_rules.csv")
-# generate_extra_rules("/Users/bartoszlachowicz/Desktop/Uni/MachineLearning-PDDL/results/sat_with_runs.csv")
+
+
+
+# if main then parse argument called file_name and execute code from below
+if __name__ == "__main__":
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("--input-file", type=str, required=True, help="path to basic rules")
+    argparser.add_argument("--output-file", type=str, required=True, help="path to save count rules")
+    args = argparser.parse_args()
+
+    binary_rules_file = args.input_file
+    output_file_name = args.output_file
+    generate_extra_rules(binary_rules_file, output_file_name)

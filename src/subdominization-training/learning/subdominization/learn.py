@@ -23,6 +23,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import RANSACRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.utils.random import sample_without_replacement
 from sklearn import metrics 
 from sklearn.metrics import classification_report
 
@@ -58,7 +59,11 @@ import helpers
 
 class LearnRules():
     
-    def __init__(self, isBalanced=False, modelType='LRCV', training_file ='', njobs=1, testSize=0.0, remove_duplicate_features=True, take_max_for_duplicates=True):
+    def __init__(
+        self, X_train, X_test, y_train, y_test, isBalanced=False,
+        modelType='LRCV', training_file ='', njobs=1, testSize=0.0,
+        remove_duplicate_features=True, take_max_for_duplicates=True
+        ):
         '''
         Constructor take parameters:
         isBalanced, Boolean for balance the target of prediction in training phase
@@ -87,7 +92,7 @@ class LearnRules():
         self.is_empty = True
         
         if (training_file !='') :
-            
+            print("This is the training file: " + training_file)
             dataset = helpers.get_dataset_from_csv(training_file, not remove_duplicate_features, take_max_for_duplicates)
             
             if (dataset is None):
@@ -97,13 +102,24 @@ class LearnRules():
             
             # print dataset.shape
             # separate in features an target
-            X, y = dataset.iloc[:,:-1], list(dataset.iloc[:, -1])
-    
+            # X, y = dataset.iloc[:,:-1], list(dataset.iloc[:, -1])
+
+            # print(sample_without_replacement(len(df), 5))
             # if we want to separate into train and test sets
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=testSize, random_state=0)
-    
+            # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+            self.X_train, self.X_test, self.y_train, self.y_test = X_train, X_test, y_train, y_test
             X=X_train
             y=y_train
+            
+            # print("Y_train")
+            # print(y_train)
+            # print("Y_test")
+            # print(y_test)
+
+            print(f'the number of 1 in y_train: {sum(y_train)}')
+            print(f'the number of 1 in y_test: {sum(y_test)}')
+
+
     
             # Standarize features
             scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
@@ -282,11 +298,23 @@ class LearnRules():
     def returnClassesOne(self,x_t):
         return self.model.predict([x_t])
 
+
     def printStats(self):
-        y_pred= self.model.predict_proba(X_test)
-        y_predClass= self.model.predict(X_test)
-        print(classification_report(list(y_test), y_predClass))
-        print(confusion_matrix(y_test, y_predClass))
+        y_pred_test= self.model.predict_proba(self.X_test)
+        
+        y_predClass_test= self.model.predict(self.X_test)
+        y_predClass_train= self.model.predict(self.X_train)
+
+        print("PREDICTED number of 1 in train_y: ", sum(y_predClass_train))
+        print("PREDICTED number of 1 in test_y: ", sum(y_predClass_test))
+
+        print("#####Train set results #####")
+        print(classification_report(list(self.y_train), y_predClass_train))
+        print(confusion_matrix(self.y_train, y_predClass_train))
+
+        print("#####Test set results #####")
+        print(classification_report(list(self.y_test), y_predClass_test))
+        print(confusion_matrix(self.y_test, y_predClass_test))
         
         if self.modelType.startswith('LR'):
             print("Coefficin matrix")

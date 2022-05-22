@@ -2,7 +2,12 @@
 
 # source .venv36/bin/activate
 
-export TRAINING_FOLDER="results/sat_training_output_size/"
+#export TRAINING_FOLDER="results/sat_training_output_size/"
+# export TRAINING_FOLDER="results/count/"
 
 
-python ./src/subdominization-training/learning/select_features.py --training-folder $TRAINING_FOLDER --selector-type LOGR
+export TRAINIG_BIN_FOLDER="double_models/binary"
+export TRAINIG_COUNT_FOLDER="double_models/count"
+
+python ./src/subdominization-training/learning/select_features.py --training-folder $TRAINIG_BIN_FOLDER --selector-type LOGR
+# python ./src/subdominization-training/learning/select_features.py --training-folder $TRAINIG_COUNT_FOLDER --selector-type LOGR

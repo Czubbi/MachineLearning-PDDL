@@ -1,0 +1,7 @@
+# !bin/zsh
+
+source .venv36/bin/activate
+
+export TRAINING_FOLDER="double_models/count"
+
+python ./src/subdominization-training/learning/select_features.py --training-folder $TRAINING_FOLDER --selector-type RF

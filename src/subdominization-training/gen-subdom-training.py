@@ -53,7 +53,7 @@ if __name__ == "__main__":
     argparser.add_argument("--op-file", default="good_operators", help="File to store the training data by gen-subdominization-training")    
     argparser.add_argument("--num-test-instances", type=int,default=0, help="Number of instances reserved for the testing set")
     argparser.add_argument("--max-training-examples", type=int, help="Maximum number of training examples for action schema", default=1000000)    
-    argparser.add_argument("--count-rules", default=False, help="Should replace binary features with counting ones")
+    argparser.add_argument("--count-rules", help="Should replace binary features with counting ones")
 
     options = argparser.parse_args()
     
@@ -67,6 +67,9 @@ if __name__ == "__main__":
     relevant_rules = []
 
     operators_filename = options.op_file
+    print(f"Count rules: {options.count_rules}, type: {type(options.count_rules)}")
+    assert options.count_rules in ["False", "True"]
+    options.count_rules = options.count_rules == "True"
 
 
     if options.instances_relevant_rules:
@@ -103,7 +106,7 @@ if __name__ == "__main__":
         relevant_rules = sorted(training_re.get_relevant_rules())
 
       
-        print ("Relevant rules: ", len(relevant_rules))
+        # print ("Relevant rules: ", len(relevant_rules))
     else:
         relevant_rules = sorted([l for l in options.training_rules.readlines()])
         # for r in relevant_rules:
@@ -152,11 +155,11 @@ if __name__ == "__main__":
 
         # input("conitnue?")
         # We create a Rule evaluator and load it with the rules we created in the subdom-rules
-        re = RulesEvaluator(relevant_rules, task)
+        re = RulesEvaluator(relevant_rules, task, count_rules=options.count_rules)
 
         #relaxed_reachable, atoms, actions, axioms, _ = instantiate.explore(task)
         
-        
+        total_turn_on_count = 0 
         with open(plan_filename) as plan_file:
             plan = set(map (lambda x : tuple(x.replace("\n", "").replace(")", "").replace("(", "").split(" ")), plan_file.readlines()))
             skip_schemas_training = [schema for schema, examples in training_lines.items() if len(examples) >= options.max_training_examples]
@@ -166,13 +169,6 @@ if __name__ == "__main__":
                 for action in actions:  # An action is a single line from all operators file.
                     action = action.decode("utf-8")
                     schema, arguments = action.split("(")
-                    # print(f"Action: {action}")
-                    # input(5)
-
-                    #print(schema)
-                    #print(arguments)
-
-                    
 
                     if not is_test_instance and schema in skip_schemas_training:
                         continue
@@ -182,10 +178,7 @@ if __name__ == "__main__":
                     arguments = map(lambda x: x.strip(), arguments.strip()[:-1].split(","))
 
                     arguments = list(arguments)
-                   
                     is_in_plan = 1 if  tuple([schema] + arguments) in plan else 0
-                    # print(f'The plan: {plan}')
-                    # input('plan')
                     eval = re.evaluate(schema, arguments)
                     # print( ",".join(map (str, [action] + eval + [is_in_plan])) )
                     # input('go_to_next')
@@ -198,7 +191,7 @@ if __name__ == "__main__":
                         testing_lines [schema].append(new_line)
                     else:
                         training_lines [schema].append(new_line)
-    
+            # print('total_number of turn on: ', total_turn_on_count)
     if testing_lines:
         os.makedirs('{}/training'.format(options.store_training_data))
 
@@ -222,7 +215,3 @@ if __name__ == "__main__":
             for line in training_lines[schema]:
                 output_file.write(line + "\n")
             output_file.close()
-
-
-                           
-    #print ("Only 0/1 rules: ", len(re.get_only_0_rules()), len(re.get_only_1_rules()), len(re.get_all_rules()))

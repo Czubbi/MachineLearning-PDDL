@@ -5,6 +5,7 @@ from subdominization.learn import LearnRules
 import os
 import sys
 import argparse
+from collections import defaultdict
 
 from shutil import copy
 
@@ -35,6 +36,9 @@ def train_model(model_folder, training_folder, model_type, keep_duplicate_featur
     
     overwrite_existing_files = None
     
+    action_count_dict = defaultdict(lambda x: 0)
+
+
     # generate models and save to file
     for file in os.listdir(training_folder):
         curr_file = os.path.join(training_folder, file)
@@ -64,25 +68,26 @@ def train_model(model_folder, training_folder, model_type, keep_duplicate_featur
                 print("writing model to file ", model_file, "")
                 learned_model.saveToDisk(model_file)
                 print(" .. done")
+                learned_model.printStats()
             print()
     
 
-def train_wrapper(model, lab_configs):
-    training_set_folder = "../caldera/training-data/goodops-useful-num10k/training/"
-    model_folder_prefix = "../caldera/trained-models/goodops-useful-num10k-test/trained_model_"
+# def train_wrapper(model, lab_configs):
+#     training_set_folder = "../caldera/training-data/goodops-useful-num10k/training/"
+#     model_folder_prefix = "../caldera/trained-models/goodops-useful-num10k-test/trained_model_"
         
-    CLASSIFIERS = set(["LOGR", "LOGRCV", "RF", "SVCCV", "SVC", "DT", "KNN", "KRNCV_RG"])        
+#     CLASSIFIERS = set(["LOGR", "LOGRCV", "RF", "SVCCV", "SVC", "DT", "KNN", "KRNCV_RG"])        
         
-    print("Training %s model" % model)
-    if (not model in CLASSIFIERS): # is regressor
-        train_model(model_folder_prefix + model.lower() + "_aggmean/", training_set_folder, model, False, True, True)
-        lab_configs.append(model.lower() + "_aggmean/")
-        train_model(model_folder_prefix + model.lower() + "_aggmax/", training_set_folder, model, False, False, True)
-        lab_configs.append(model.lower() + "_aggmax/")
-    else:
-        train_model(model_folder_prefix + model.lower() + "/", training_set_folder, model, False, False, True)
-        lab_configs.append(model.lower() + "/")
-    print()
+#     print("Training %s model" % model)
+#     if (not model in CLASSIFIERS): # is regressor
+#         train_model(model_folder_prefix + model.lower() + "_aggmean/", training_set_folder, model, False, True, True)
+#         lab_configs.append(model.lower() + "_aggmean/")
+#         train_model(model_folder_prefix + model.lower() + "_aggmax/", training_set_folder, model, False, False, True)
+#         lab_configs.append(model.lower() + "_aggmax/")
+#     else:
+#         train_model(model_folder_prefix + model.lower() + "/", training_set_folder, model, False, False, True)
+#         lab_configs.append(model.lower() + "/")
+#     print()
 
 
 
