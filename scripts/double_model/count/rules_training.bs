@@ -5,11 +5,11 @@ source .venv36/bin/activate
  
 # satellite
 export RUNS_FOLDER="useful-actions-dataset-main/satellite/runs/optimal"
-export RULE_FILE="double_models/count/count_rules.csv"
+export RULE_FILE="double_models/count_rules.csv"
 export OUTPUT="double_models/count"
 
 export BIN_RULES="double_models/rules.csv"
-export OUTPUT_FILE="double_models/count/count_rules.csv"
+export OUTPUT_FILE="double_models/count_rules.csv"
 
 python postprocessing.py --input-file $BIN_RULES --output-file $OUTPUT_FILE
 python src/subdominization-training/gen-subdom-training.py $RUNS_FOLDER $RULE_FILE $OUTPUT --count-rules True

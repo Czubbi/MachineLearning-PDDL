@@ -60,7 +60,7 @@ import helpers
 class LearnRules():
     
     def __init__(
-        self, X_train, X_test, y_train, y_test, isBalanced=False,
+        self, isBalanced=False,
         modelType='LRCV', training_file ='', njobs=1, testSize=0.0,
         remove_duplicate_features=True, take_max_for_duplicates=True
         ):
@@ -102,11 +102,11 @@ class LearnRules():
             
             # print dataset.shape
             # separate in features an target
-            # X, y = dataset.iloc[:,:-1], list(dataset.iloc[:, -1])
+            X, y = dataset.iloc[:,:-1], list(dataset.iloc[:, -1])
 
             # print(sample_without_replacement(len(df), 5))
             # if we want to separate into train and test sets
-            # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
             self.X_train, self.X_test, self.y_train, self.y_test = X_train, X_test, y_train, y_test
             X=X_train
             y=y_train
@@ -116,8 +116,8 @@ class LearnRules():
             # print("Y_test")
             # print(y_test)
 
-            print(f'the number of 1 in y_train: {sum(y_train)}')
-            print(f'the number of 1 in y_test: {sum(y_test)}')
+            # print(f'the number of 1 in y_train: {sum(y_train)}')
+            # print(f'the number of 1 in y_test: {sum(y_test)}')
 
 
     

@@ -96,8 +96,8 @@ def train_model(both_models_folder, model_type, keep_duplicate_features, mean_ov
             
             # Get the indicies based on the data we loaded and then pass the data to the models
             # the two parameters are remove_duplicate_features and tax_max_for_duplicates
-            dataset_bin = helpers.get_dataset_from_csv(curr_bin_file, not keep_duplicate_features, not mean_over_duplicates)
-            dataset_count = helpers.get_dataset_from_csv(curr_count_file, not keep_duplicate_features, mean_over_duplicates)
+            dataset_bin = helpers.get_dataset_from_csv(curr_bin_file, keep_duplicate_features, mean_over_duplicates)
+            dataset_count = helpers.get_dataset_from_csv(curr_count_file, keep_duplicate_features, mean_over_duplicates)
             assert len(dataset_bin) == len(dataset_count)
 
             # robie tak zeby podawac X_train, X_test itp z miejsca tutaj a nie zebym tam dzielic

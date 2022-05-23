@@ -7,4 +7,4 @@ export TESTING_FOLDER="double_models/binary/models"
 
 export BOTH_MODELS_FOLDER="double_models"
 
-python ./src/subdominization-training/learning/train_2_models.py --both-models-folder $BOTH_MODELS_FOLDER --model-type RF
+python ./src/subdominization-training/learning/train_2_models.py --both-models-folder $BOTH_MODELS_FOLDER --model-type SVC
